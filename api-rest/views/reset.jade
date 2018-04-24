@@ -1,0 +1,15 @@
+extends layout
+block content
+  form(method='POST')
+    legend Expogenios- Cambiar Contraseña.
+    .form-group
+
+      label(for='password') Nueva Contraseña
+      input.form-control(type='password', name='password', value='', placeholder='Nueva Contraseña', autofocus=true)
+    .form-group
+      label(for='confirm') Confirma Contraseña
+      input.form-control(type='password', name='confirm', value='', placeholder='Confirma Contraseña')
+    br
+    br
+    .form-group
+      button.btn.btn-primary(type='submit') Actualizar Contraseña
