@@ -1,0 +1,36 @@
+
+.different{
+    background-color: rgb(235, 92, 67),
+    width= 100px;
+}
+.form-group{
+    padding-left:20px;
+}
+@media screen and (max-width: 800px) {
+    .desktop-hidden {
+      display: initial;
+    }
+    .mobile-hidden {
+      display: none;
+    }
+  }
+  @media(max-width: 800px) {
+    .responsive_table {
+        overflow-x: auto !important;
+    }
+
+    .mat-table {
+        min-width:800px;
+    }
+}
+.check{
+  color:#42A948;
+}
+.uncheck{
+  color:#a94442;
+}
+
+ 
+  
+
+  

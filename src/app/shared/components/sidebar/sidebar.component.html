@@ -1,0 +1,57 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive}">
+    <div class="nested-menu" *ngIf="dataShared">
+        <a class="list-group-item" (click)="addExpandClass('pages')">
+            <span><i class="fa fa-user"></i>&nbsp; {{this.usuario}}</span>
+        </a>
+        <li class="nested" [class.expand]="showMenu === 'pages'">
+            <ul class="submenu">
+                <li>
+                    <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-fw fa-envelope"></i> Bandeja de Entrada</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" [routerLink]="['/login']" (click)="onLoggedout()"><i class="fa fa-fw fa-power-off"></i> Cerrar Sesión</a>
+                </li>
+            </ul>
+        </li>
+    </div>
+    <ul class="list-group">
+        
+        <a routerLink="/dashboard" (click)="oculta()" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-dashboard"></i>&nbsp;{{ 'Dashboard' }}
+        </a>
+        <a [routerLink]="['/usuarios']" (click)="oculta()" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-users"></i>&nbsp;{{ 'Usuarios' }}
+        </a>
+        <a [routerLink]="['/asistencia']" (click)="oculta()" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-table"></i>&nbsp;{{ 'Asistencia'}}
+        </a>
+        <!--<a [routerLink]="['/catalogos']" (click)="oculta()" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-edit"></i>&nbsp;{{ 'Catálogos'}}
+        </a>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('pages')">
+                <span><i class="fa fa-list-ol"></i>&nbsp; {{ 'Proyectos'}}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a href="javascript:void(0)" (click)="oculta()" [routerLink]="['/proyectos']"><span><i class="fa fa-plus"></i>&nbsp;{{ 'Predeterminados' }}</span></a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" (click)="oculta()" [routerLink]="['/proyectos']"><span><i class="fa fa-plus"></i>&nbsp;{{ 'Asignados' }}</span></a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+        <!--<a [routerLink]="['/proyectos']" (click)="oculta()" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-list-ol"></i>&nbsp;{{ 'Proyectos' }}
+        </a>-->
+        <!--<a [routerLink]="['/calificaciones']" (click)="oculta()" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-star"></i>&nbsp;{{ 'Calificaciones' }}
+        </a>-->
+        <a [routerLink]="['/reportes']" (click)="oculta()" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-line-chart"></i>&nbsp;{{ 'Reportes' }}
+        </a>
+        
+    </ul>
+</nav>

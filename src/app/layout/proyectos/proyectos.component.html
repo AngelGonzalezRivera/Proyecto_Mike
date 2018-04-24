@@ -1,0 +1,245 @@
+<app-page-header [heading]="'Proyectos'" [icon]="'fa fa-list-ol'"></app-page-header>
+<div class="pull-right">
+        <button class="btn btn-primary" routerLink="/proyectos" (click)="open('registrar',0,content)"><b>+</b> Registrar Proyecto </button>                                    
+    </div>
+    <br>
+    <br>
+<div class="container-fluid">
+    <div class="row">
+            <div class="col col-xl-12 col-lg-12">
+                    <div class="card mb-3">
+                    <div class="card-block table-responsive">
+                        <br><br>
+                        <div *ngIf="cargando" class="text-center" style="padding-top: 60px;">
+                                <img src="../../../assets/spinner.gif">
+                        </div>
+                        <div style="text-align:center;">
+                            Busqueda: <input type="text" pInputText placeholder="Filtro de Busqueda..." #gb pInputText >
+                            <a  class="search-icon">
+                                <i class="fa fa-search" id="myimage"></i>
+                            </a>
+</div>
+<br>
+                            <p-dataTable [emptyMessage]="myVariable" [tableStyle]="{'table-layout':'auto'}"  [value]="prpropios" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [pageLinks]="3" [responsive]="true" [style]="{'width': '900'}" [globalFilter]="gb" #dt  [stacked]="stacked">
+                            <p-column  [style]="{'width':'150px'}" field="Nombre" header="Nombre"></p-column>
+                            <p-column  [style]="{'width':'150px'}" field="Descripcion"  header="Descripción"></p-column>
+                            <p-column  [style]="{'width':'100px'}" field="idArea" header="Área"></p-column>
+                            <p-column  [style]="{'width':'100px'}" field="idEscuela" header="Escuela"></p-column>
+                            <p-column  [style]="{'width':'100px'}" field="idCategoria" header="Categoría"></p-column>
+                            <p-column  [style]="{'width':'100px'}" field="Asesor_Nombre" header="Nombre Asesor"></p-column> 
+                            <p-column  [style]="{'width':'100px'}" field="Asesor_apellido" header="Apellido Asesor"></p-column>
+                            <p-column  [style]="{'width':'100px'}" field="Fecha" header="Fecha Registro"></p-column>
+                            <p-column  [style]="{'width':'100px'}" header="Status">
+                                <ng-template let-i="rowIndex" pTemplate="body">
+                                    <p-toggleButton onLabel="Activo" offLabel="Baja" [(ngModel)]="prpropios[i].Status" (click)="change(prpropios[i].idProyectos_Propios,prpropios[i].Status)"> </p-toggleButton> 
+                                 </ng-template>-->
+                            </p-column>
+
+                           <p-column header="Acciones" [style]="{'width':'180px'}" >        
+                              <ng-template let-h="rowIndex" pTemplate="body">
+                                  <button  (click)="open('editar',cars[h].idUsuario,content3)" type="button" class="btn btn-success" >
+                                  <span class="fa fa-pencil-square-o" aria-hidden="true"></span>
+                                  </button>
+                                  <button  (click)="open('eliminar',cars[h].idUsuario,content2)" type="button" class="btn btn-danger">
+                                    <span class="fa fa-trash-o" aria-hidden="true"></span>
+                                    </button>
+                              </ng-template>
+                         </p-column> 
+                         
+                          </p-dataTable>
+<br>
+<br>
+                                <div *ngIf="noresultados">
+                                        <p>No Existe ninguna coincidencia</p>
+                                    </div>
+                </div>
+                    </div>
+                </div>
+                
+</div>
+</div>
+
+<template #content let-c="close" let-d="dismiss">
+<div class="modal-header">
+<h4 class="modal-title">Registro de Usuarios</h4>
+<button type="button" class="close" aria-label="Close" (click)="d('cerrar')">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+        <div class="row">
+                <div class="col-md-12">
+                    <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()" >
+                      <div class="form-group">
+                            <i class="fa fa-check-circle check" *ngIf="usuarioForm.controls.Nombre.valid"></i>
+                            <i class="fa fa-exclamation-circle uncheck" *ngIf="usuarioForm.controls.Nombre.invalid && usuarioForm.controls.Nombre.touched"></i>                            
+                          <label for="nombre">Nombre(s)</label>         
+                          <input type="text" class="form-control" formControlName="Nombre" id="nombre"  required>
+                          <p class="alert alert-danger" *ngIf="usuarioForm.controls.Nombre.invalid && usuarioForm.controls.Nombre.touched">El campo "Nombre" es obligatorio.</p>                                                
+                        </div>
+                        <div class="form-group">
+                            <i class="fa fa-check-circle check" *ngIf="usuarioForm.controls.Apellido.valid"></i>
+                            <i class="fa fa-exclamation-circle uncheck" *ngIf="usuarioForm.controls.Apellido.invalid && usuarioForm.controls.Apellido.touched"></i>                            
+                          <label for="app">Apellido(s)</label>
+                          <input type="text" class="form-control" formControlName="Apellido" id="app" required>
+                          <p class="alert alert-danger" *ngIf="usuarioForm.controls.Apellido.invalid && usuarioForm.controls.Apellido.touched">El campo "Apellido" es obligatorio.</p>                                                
+                        </div>
+                        <div class="form-group">
+                                <i class="fa fa-check-circle check" *ngIf="usuarioForm.controls.Telefono.valid"></i>
+                                <i class="fa fa-exclamation-circle uncheck" *ngIf="usuarioForm.controls.Telefono.invalid && usuarioForm.controls.Telefono.touched"></i>                                
+                          <label for="Telefono">Telefono</label>
+                          <input type="number" class="form-control" formControlName="Telefono" id="Telefono" placeholder="Ej. 6688010203">
+                          <p class="alert alert-danger" *ngIf="usuarioForm.controls.Telefono.invalid && usuarioForm.controls.Telefono.touched">El campo "Telefono" es obligatorio.</p>                                                
+                        </div>  
+                        <div class="form-group">
+                                <i class="fa fa-check-circle check" *ngIf="usuarioForm.controls.Correo.valid"></i>
+                                <i class="fa fa-exclamation-circle uncheck" *ngIf="usuarioForm.controls.Correo.invalid && usuarioForm.controls.Correo.touched"></i>                                
+                                <label for="Correo">Correo Electronico</label>
+                                <input type="text" class="form-control" id="Correo" formControlName="Correo" placeholder="Ej. Correo@ejemplo.com">
+                                <p class="alert alert-danger" *ngIf="usuarioForm.controls.Correo.invalid && usuarioForm.controls.Correo.touched">El campo "Correo Electronico" no es Valido.</p>                                                
+
+                        </div>  
+                        <div class="form-group">
+                                <i class="fa fa-check-circle check" *ngIf="(usuarioForm.controls.Contra.valid)&&(!(usuarioForm.get(['Contra']).value != usuarioForm.get(['Contra2']).value && usuarioForm.get(['Contra2']).value != null))"></i>
+                                <i class="fa fa-exclamation-circle uncheck" *ngIf="(usuarioForm.controls.Contra.invalid && usuarioForm.controls.Contra.touched) || (usuarioForm.get(['Contra']).value != usuarioForm.get(['Contra2']).value && usuarioForm.get(['Contra2']).value != null)"></i>                                
+                                <label for="contra1">Contraseña</label>
+                                <input type="password" class="form-control" id="contra1" formControlName="Contra" placeholder="minimo 6 caracteres">
+                                <p class="alert alert-danger" *ngIf="usuarioForm.controls.Contra.invalid && usuarioForm.controls.Contra.touched">Minimo 6 Caracteres Requeridos.</p>                                                
+
+                            </div>  
+                        <div class="form-group">
+                            <i class="fa fa-check-circle check" *ngIf="(usuarioForm.controls.Contra2.valid)&&(!(usuarioForm.get(['Contra']).value != usuarioForm.get(['Contra2']).value && usuarioForm.get(['Contra2']).value != null))"></i>
+                            <i class="fa fa-exclamation-circle uncheck" *ngIf="(usuarioForm.controls.Contra2.invalid && usuarioForm.controls.Contra2.touched) || (usuarioForm.get(['Contra']).value != usuarioForm.get(['Contra2']).value && usuarioForm.get(['Contra2']).value != null)"></i>                                
+                            <label for="contra2">Confirma Contraseña</label>
+                                <input type="password" class="form-control" id="contra2" formControlName="Contra2" placeholder="minimo 6 caracteres">
+                                <p class="alert alert-danger" *ngIf="usuarioForm.controls.Contra2.invalid && usuarioForm.controls.Contra2.touched">Minimo 6 Caracteres Requeridos.</p>                                                
+                            </div> 
+                            <p class="alert alert-danger" *ngIf="usuarioForm.get(['Contra']).value != usuarioForm.get(['Contra2']).value && usuarioForm.get(['Contra2']).value != null">
+                               Contraseñas no Coinciden</p>
+
+                        <div class="form-group">
+                                <i class="fa fa-check-circle check" *ngIf="usuarioForm.controls.idPermiso.valid"></i>
+                                <i class="fa fa-exclamation-circle uncheck" *ngIf="usuarioForm.controls.idPermiso.invalid && usuarioForm.controls.idPermiso.touched"></i>                                
+                        <label for="permisos">Permisos</label>      
+                        <select class="form-control" id="Permisos" formControlName="idPermiso">
+                                        <option value="seleccione" disabled="disabled" selected="selected" hidden="hidden">Seleccione</option>
+                                        <option *ngFor="let item of permisos.Permisos;" [value]="item.idPermiso"> {{item.Nombre}}</option>
+                        </select>
+                        <p class="alert alert-danger" *ngIf="usuarioForm.controls.idPermiso.invalid && usuarioForm.controls.idPermiso.touched">El campo "Permisos" es obligatorio.</p>                                                
+<br>
+                        <br>
+                        <br>
+                        <p class="alert alert-danger" *ngIf="!usuarioForm.valid">Por favor complete todos los campos</p>
+
+                        </div>  
+                        <div class="modal-footer">
+
+                                <button type="button" class="btn btn-success" [disabled]="!usuarioForm.valid" (click)="c('Aceptar')" >Añadir Usuario</button>
+                                <a class="btn btn-danger" routerLink="/usuarios" (click)="c('Cancelar')">Cancelar</a>
+
+                            </div>           
+                  </form>
+
+                  </div>
+              </div>
+</div>
+</template>
+<template #content2 let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Advertencia</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('cerrar')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>¿Realmente desea dar de baja este Usuario?&hellip;</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="c('Cancelar')">Cancelar</button>
+      <button type="button" class="btn btn-secondary" (click)="c('Aceptar')">Aceptar</button>          
+    </div>
+  </template>   
+
+
+
+  <template #content3 let-c="close" let-d="dismiss">
+    <div class="modal-header">
+    <h4 class="modal-title">Edicion de Usuarios</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('cerrar')">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+            <div class="row">
+                    <div class="col-md-12">
+                        <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()" >
+                          <div class="form-group">
+                                <i class="fa fa-check-circle check" *ngIf="usuarioForm.controls.Nombre.valid"></i>
+                                <i class="fa fa-exclamation-circle uncheck" *ngIf="usuarioForm.controls.Nombre.invalid && usuarioForm.controls.Nombre.touched"></i>                            
+                              <label for="nombre">Nombre(s)</label>         
+                              <input type="text" class="form-control" formControlName="Nombre" id="nombre"  required>
+                              <p class="alert alert-danger" *ngIf="usuarioForm.controls.Nombre.invalid && usuarioForm.controls.Nombre.touched">El campo "Nombre" es obligatorio.</p>                                                
+                            </div>
+                            <div class="form-group">
+                                <i class="fa fa-check-circle check" *ngIf="usuarioForm.controls.Apellido.valid"></i>
+                                <i class="fa fa-exclamation-circle uncheck" *ngIf="usuarioForm.controls.Apellido.invalid && usuarioForm.controls.Apellido.touched"></i>                            
+                              <label for="app">Apellido(s)</label>
+                              <input type="text" class="form-control" formControlName="Apellido" id="app" required>
+                              <p class="alert alert-danger" *ngIf="usuarioForm.controls.Apellido.invalid && usuarioForm.controls.Apellido.touched">El campo "Apellido" es obligatorio.</p>                                                
+                            </div>
+                            <div class="form-group">
+                                    <i class="fa fa-check-circle check" *ngIf="usuarioForm.controls.Telefono.valid"></i>
+                                    <i class="fa fa-exclamation-circle uncheck" *ngIf="usuarioForm.controls.Telefono.invalid && usuarioForm.controls.Telefono.touched"></i>                                
+                              <label for="Telefono">Telefono</label>
+                              <input type="number" class="form-control" formControlName="Telefono" id="Telefono" placeholder="Ej. 6688010203">
+                              <p class="alert alert-danger" *ngIf="usuarioForm.controls.Telefono.invalid && usuarioForm.controls.Telefono.touched">El campo "Telefono" es obligatorio.</p>                                                
+                            </div>  
+                            <div class="form-group">
+                                    <i class="fa fa-check-circle check" *ngIf="usuarioForm.controls.Correo.valid"></i>
+                                    <i class="fa fa-exclamation-circle uncheck" *ngIf="usuarioForm.controls.Correo.invalid && usuarioForm.controls.Correo.touched"></i>                                
+                                    <label for="Correo">Correo Electronico</label>
+                                    <input type="text" class="form-control" id="Correo" formControlName="Correo" placeholder="Ej. Correo@ejemplo.com">
+                                    <p class="alert alert-danger" *ngIf="usuarioForm.controls.Correo.invalid && usuarioForm.controls.Correo.touched">El campo "Correo Electronico" es obligatorio.</p>                                                
+    
+                            </div>  
+                            <div class="form-group">
+                                <i class="fa fa-check-circle check" *ngIf="(usuarioForm.controls.Contra.valid)&&(!(usuarioForm.get(['Contra']).value != usuarioForm.get(['Contra2']).value && usuarioForm.get(['Contra2']).value != null))"></i>
+                                <i class="fa fa-exclamation-circle uncheck" *ngIf="(usuarioForm.controls.Contra.invalid && usuarioForm.controls.Contra.touched) || (usuarioForm.get(['Contra']).value != usuarioForm.get(['Contra2']).value && usuarioForm.get(['Contra2']).value != null)"></i>                                
+                                <label for="contra1">Contraseña</label>
+                                <input type="password" class="form-control" id="contra1" formControlName="Contra" placeholder="minimo 6 caracteres">
+                                <p class="alert alert-danger" *ngIf="usuarioForm.controls.Contra.invalid && usuarioForm.controls.Contra.touched">Minimo 6 Caracteres Requeridos.</p>                                                
+
+                            </div>  
+                        <div class="form-group">
+                            <i class="fa fa-check-circle check" *ngIf="(usuarioForm.controls.Contra2.valid)&&(!(usuarioForm.get(['Contra']).value != usuarioForm.get(['Contra2']).value && usuarioForm.get(['Contra2']).value != null))"></i>
+                            <i class="fa fa-exclamation-circle uncheck" *ngIf="(usuarioForm.controls.Contra2.invalid && usuarioForm.controls.Contra2.touched) || (usuarioForm.get(['Contra']).value != usuarioForm.get(['Contra2']).value && usuarioForm.get(['Contra2']).value != null)"></i>                                
+                            <label for="contra2">Confirma Contraseña</label>
+                                <input type="password" class="form-control" id="contra2" formControlName="Contra2" placeholder="minimo 6 caracteres">
+                                <p class="alert alert-danger" *ngIf="usuarioForm.controls.Contra2.invalid && usuarioForm.controls.Contra2.touched">Minimo 6 Caracteres Requeridos.</p>                                                
+                            </div> 
+                            <p class="alert alert-danger" *ngIf="usuarioForm.get(['Contra']).value != usuarioForm.get(['Contra2']).value && usuarioForm.get(['Contra2']).value != null">
+                               Contraseñas no Coinciden</p>
+                            <div class="form-group">
+                                    <i class="fa fa-check-circle check" *ngIf="usuarioForm.controls.idPermiso.valid"></i>
+                                    <i class="fa fa-exclamation-circle uncheck" *ngIf="usuarioForm.controls.idPermiso.invalid && usuarioForm.controls.idPermiso.touched"></i>                                
+                            <label for="permisos">Permisos</label>      
+                            <select class="form-control" id="Permisos" formControlName="idPermiso">
+                                            <option value="seleccione" disabled="disabled" selected="selected" hidden="hidden">Seleccione</option>
+                                            <option *ngFor="let item of permisos.Permisos;" [value]="item.idPermiso"> {{item.Nombre}}</option>
+                            </select>
+                            <p class="alert alert-danger" *ngIf="usuarioForm.controls.idPermiso.invalid && usuarioForm.controls.idPermiso.touched">El campo "Permisos" es obligatorio.</p>                                                
+                            <br><br><br>
+                            <p class="alert alert-danger" *ngIf="!usuarioForm.valid">Por favor complete todos los campos</p>
+    
+                            </div>  
+                            <div class="modal-footer">
+    
+                                    <button type="button" class="btn btn-success" [disabled]="!usuarioForm.valid" (click)="c('Aceptar')" >Guardar Cambios</button>
+                                    <a class="btn btn-danger" routerLink="/usuarios" (click)="c('Cancelar')">Cancelar</a>
+    
+                                </div>           
+                      </form>
+                      </div>
+                  </div>
+    </div>
+    </template>
