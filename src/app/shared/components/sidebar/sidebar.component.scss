@@ -1,4 +1,4 @@
-$topnav-background-color: #222;
+$topnav-background-color: #004A9B;
 .sidebar{
     border-radius: 0;
     font-size: 17px;
@@ -27,19 +27,19 @@ $topnav-background-color: #222;
             background: $topnav-background-color;
             border: 0;
             border-radius: 0;
-            color: #999;
+            color: goldenrod;
             text-decoration: none;
             .fa {
                 margin-right: 10px;
             }
         }
         a:hover {
-            background: darken($topnav-background-color, 5%);
-            color: #fff;
+            background: goldenrod;
+            color: darken($topnav-background-color, 5%);
         }
         a.router-link-active {
-            background: darken($topnav-background-color, 5%);
-            color: #fff;
+            background: goldenrod;
+            color: darken($topnav-background-color, 5%);
         }
     }
     .sidebar-dropdown {
