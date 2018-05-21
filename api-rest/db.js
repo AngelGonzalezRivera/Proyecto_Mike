@@ -5,7 +5,7 @@ exports.connect = function() {
     host     : 'localhost',
     user     : 'root',
     password : '',
-    database : 'bd_expogenios'
+    database : 'bdis'
   });
 }
 exports.get = function() {
