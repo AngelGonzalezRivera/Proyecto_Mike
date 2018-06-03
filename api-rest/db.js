@@ -5,7 +5,7 @@ exports.connect = function() {
     host     : 'localhost',
     user     : 'root',
     password : '',
-    database : 'bdis'
+    database : 'mike'
   });
 }
 exports.get = function() {
