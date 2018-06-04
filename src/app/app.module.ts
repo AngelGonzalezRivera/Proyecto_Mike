@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import{ AuthenticationService} from './shared/services/authentication.service';
 import{ UserService} from './shared/services/user.service';
+import{ MaestroService} from './shared/services/Maestro.service';
+
 import{ PrpropiosService} from './shared/services/prpropios.service';
 export function HttpLoaderFactory(http: Http) {
     return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
@@ -31,7 +33,7 @@ export function HttpLoaderFactory(http: Http) {
             }
         })
     ],
-    providers: [AuthGuard,AuthenticationService,UserService,PrpropiosService],
+    providers: [AuthGuard,AuthenticationService,UserService,PrpropiosService,MaestroService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

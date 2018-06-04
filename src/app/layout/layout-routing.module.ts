@@ -13,6 +13,7 @@ const routes: Routes = [
             { path: 'proyectos', loadChildren: './proyectos/proyectos.module#ProyectosModule' },
             { path: 'calificaciones', loadChildren: './calificaciones/calificaciones.module#CalificacionesModule' },
             { path: 'reportes', loadChildren: './reportes/reportes.module#ReportesModule' },
+            { path: 'maestro', loadChildren: './maestro/maestro.module#MaestroModule' }
         ]
     }
 ];

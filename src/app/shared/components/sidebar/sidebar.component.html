@@ -22,9 +22,33 @@
         <a [routerLink]="['/usuarios']" (click)="oculta()" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-users"></i>&nbsp;{{ 'Usuarios' }}
         </a>
-        <a [routerLink]="['/catalogos']" (click)="oculta()" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-table"></i>&nbsp;{{ 'Asistencia'}}
-        </a>
+        <!-- <a [routerLink]="['/catalogos']" (click)="oculta()" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-table"></i>&nbsp;{{ 'Catalogos'}}
+        </a> -->
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('pages0')">
+                <span><i class="fa fa-university"></i>&nbsp; {{ 'Catalogos'}}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'pages0'">
+                <ul class="submenu">
+                    <li>
+                        <a  href="javascript:void(0)" (click)="oculta()" [routerLink]="['/maestro']"><span><i class="fa fa-plus"></i>&nbsp;{{ 'Maestros' }}</span></a>
+                    </li>
+                    <!-- <li>
+                        <a style="color: rgb(59, 59, 59)" href="javascript:void(0)" (click)="oculta()" [routerLink]="['/sectores']"><span><i class="fa fa-plus"></i>&nbsp;{{ 'Sectores' }}</span></a>
+                    </li>
+                    <li>
+                        <a style="color: rgb(59, 59, 59)" href="javascript:void(0)" (click)="oculta()" [routerLink]="['/zonas']"><span><i class="fa fa-plus"></i>&nbsp;{{ 'Zonas' }}</span></a>
+                    </li>
+                    <li>
+                        <a style="color: rgb(59, 59, 59)" href="javascript:void(0)" (click)="oculta()" [routerLink]="['/municipios']"><span><i class="fa fa-plus"></i>&nbsp;{{ 'Municipios' }}</span></a>
+                    </li>
+                    <li>
+                        <a style="color: rgb(59, 59, 59)" href="javascript:void(0)" (click)="oculta()" [routerLink]="['/participantes']"><span><i class="fa fa-plus"></i>&nbsp;{{ 'Participantes' }}</span></a>
+                    </li> -->
+                </ul>
+            </li>
+        </div>
         <a [routerLink]="['/asistencia']" (click)="oculta()" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-table"></i>&nbsp;{{ 'plan de semestre'}}
         </a>
