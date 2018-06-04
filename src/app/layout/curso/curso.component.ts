@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { MaestroService } from '../../shared/services/Maestro.service';
+import { CursoService } from '../../shared/services/Curso.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-maestro',
-    templateUrl: './maestro.component.html',
-    styleUrls: ['./maestro.component.scss']
+    selector: 'app-curso',
+    templateUrl: './curso.component.html',
+    styleUrls: ['./curso.component.scss']
 })
-export class MaestroComponent implements OnInit {
+export class CursoComponent implements OnInit {
 
 
-    agregarmaestros(){
-      this.maestro=this.savemaestro();
-      this.MS.postMaestro(this.maestro).subscribe(newpres => {
+    agregarcursos(){
+      this.curso=this.savecurso();
+      this.CS.postCurso(this.curso).subscribe(newpres => {
         console.log(newpres);
         if(newpres.status==200){
           alert("Registro Realizado Correctamente");
@@ -26,13 +26,13 @@ export class MaestroComponent implements OnInit {
         //console.log("ok"); 
         //window.location.reload()
         this.refreshDT();
-        this.maestro=[];
+        this.curso=[];
       });    }
-    maestro:any;
-    maestros:any;
-    maestrosForm:FormGroup;
+    curso:any;
+    cursos:any;
+    cursosForm:FormGroup;
     closeResult:any;
-    constructor(public MS:MaestroService, private pf: FormBuilder,private modalService: NgbModal,private router:Router) { 
+    constructor(public CS:CursoService, private pf: FormBuilder,private modalService: NgbModal,private router:Router) { 
         this.refreshDT();
     }
     change(id$,status){
@@ -41,7 +41,7 @@ export class MaestroComponent implements OnInit {
         if(status==true){
           stat='A'
         }else stat='B';
-        this.MS.changeStatus(id$,stat).subscribe(newpre => { 
+        this.CS.changeStatus(id$,stat).subscribe(newpre => { 
           this.refreshDT();
           //this.router.navigate(['/clientes'])
           //alert('Datos Cliente ->  ' + this.id + ' Actualizados');
@@ -50,34 +50,34 @@ export class MaestroComponent implements OnInit {
     
       }
     refreshDT(){
-        this.MS.getMaestros().subscribe(data1 => {
+        this.CS.getCursos().subscribe(data1 => {
             data1.forEach(function(element) {
                 if(element.status=='A'){element.status=true}else element.status=false;               
                 });
-                 this.maestros=data1;
+                 this.cursos=data1;
             });    
     }
     open(accion,id$,content) {
         //this.clear();
         if(accion=='editar'){
         console.log(id$);
-              this.MS.getMaestro(id$).subscribe(maestros => {
-                console.log(maestros);
-                //console.log(maestros.User[0].nombre);
-                this.maestrosForm.controls['inicio'].setValue(maestros[0].nombre);
-                this.maestrosForm.controls['apellido'].setValue(maestros[0].apellido);
-                this.maestrosForm.controls['status'].setValue(maestros[0].status);
+              this.CS.getCurso(id$).subscribe(cursos => {
+                console.log(cursos);
+                //console.log(cursos.User[0].inicio);
+                this.cursosForm.controls['inicio'].setValue(cursos[0].inicio);
+                this.cursosForm.controls['fin'].setValue(cursos[0].fin);
+                this.cursosForm.controls['status'].setValue(cursos[0].status);
               });}
         //console.log(accion,id$);
           this.modalService.open(content).result.then((result) => {
               this.closeResult = `${result}`;
               if(accion=='registrar'){
               if(this.closeResult=='Aceptar'){
-                  this.agregarmaestros();}
+                  this.agregarcursos();}
           }else if(accion=='editar'){
             if(this.closeResult=='Aceptar'){
             //console.log("eliminaaaaaa");
-              this.editarmaestros(id$);
+              this.editarcursos(id$);
             }}
           }, (reason) => {
               console.log(reason);
@@ -97,26 +97,26 @@ export class MaestroComponent implements OnInit {
 
 
     ngOnInit() {
-        this.maestrosForm= this.pf.group({
-            nombre: ['', Validators.required],
-            apellido: ['', Validators.required ],
+        this.cursosForm= this.pf.group({
+            inicio: ['', Validators.required],
+            fin: ['', Validators.required ],
             status: ['', Validators.required ],
           });  
     }
-    savemaestro() {
-      const savemaestro = {
-        nombre: this.maestrosForm.get('inicio').value,
-        apellido: this.maestrosForm.get('apellido').value,
-        status: this.maestrosForm.get('status').value
+    savecurso() {
+      const savecurso = {
+        inicio: this.cursosForm.get('inicio').value,
+        fin: this.cursosForm.get('fin').value,
+        status: this.cursosForm.get('status').value
       };
-      return savemaestro;
+      return savecurso;
 }
-editarmaestros(id$) {
-  this.maestro = this.savemaestro();
-  console.log(this.maestro);
-  this.MS.putMaestro(id$,this.maestro).subscribe(newpre => { 
+editarcursos(id$) {
+  this.curso = this.savecurso();
+  console.log(this.curso);
+  this.CS.putCurso(id$,this.curso).subscribe(newpre => { 
   this.refreshDT();
-  this.maestro=[];
+  this.curso=[];
 
 //this.router.navigate(['/clientes'])
 //alert('Datos Cliente ->  ' + this.id + ' Actualizados');

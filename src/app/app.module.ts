@@ -8,6 +8,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import{ AuthenticationService} from './shared/services/authentication.service';
+import{ CarreraService} from './shared/services/Carrera.service';
+import{ CursoService} from './shared/services/Curso.service';
+
 import{ UserService} from './shared/services/user.service';
 import{ MaestroService} from './shared/services/Maestro.service';
 
@@ -33,7 +36,7 @@ export function HttpLoaderFactory(http: Http) {
             }
         })
     ],
-    providers: [AuthGuard,AuthenticationService,UserService,PrpropiosService,MaestroService],
+    providers: [CursoService,CarreraService,AuthGuard,AuthenticationService,UserService,PrpropiosService,MaestroService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

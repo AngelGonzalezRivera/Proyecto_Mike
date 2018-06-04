@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { MaestroService } from '../../shared/services/Maestro.service';
+import { CarreraService } from '../../shared/services/Carrera.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-maestro',
-    templateUrl: './maestro.component.html',
-    styleUrls: ['./maestro.component.scss']
+    selector: 'app-carrera',
+    templateUrl: './carrera.component.html',
+    styleUrls: ['./carrera.component.scss']
 })
-export class MaestroComponent implements OnInit {
+export class CarreraComponent implements OnInit {
 
 
-    agregarmaestros(){
-      this.maestro=this.savemaestro();
-      this.MS.postMaestro(this.maestro).subscribe(newpres => {
+    agregarcarreras(){
+      this.carrera=this.savecarrera();
+      this.CS.postCarrera(this.carrera).subscribe(newpres => {
         console.log(newpres);
         if(newpres.status==200){
           alert("Registro Realizado Correctamente");
@@ -26,13 +26,13 @@ export class MaestroComponent implements OnInit {
         //console.log("ok"); 
         //window.location.reload()
         this.refreshDT();
-        this.maestro=[];
+        this.carrera=[];
       });    }
-    maestro:any;
-    maestros:any;
-    maestrosForm:FormGroup;
+    carrera:any;
+    carreras:any;
+    carrerasForm:FormGroup;
     closeResult:any;
-    constructor(public MS:MaestroService, private pf: FormBuilder,private modalService: NgbModal,private router:Router) { 
+    constructor(public CS:CarreraService, private pf: FormBuilder,private modalService: NgbModal,private router:Router) { 
         this.refreshDT();
     }
     change(id$,status){
@@ -41,7 +41,7 @@ export class MaestroComponent implements OnInit {
         if(status==true){
           stat='A'
         }else stat='B';
-        this.MS.changeStatus(id$,stat).subscribe(newpre => { 
+        this.CS.changeStatus(id$,stat).subscribe(newpre => { 
           this.refreshDT();
           //this.router.navigate(['/clientes'])
           //alert('Datos Cliente ->  ' + this.id + ' Actualizados');
@@ -50,34 +50,33 @@ export class MaestroComponent implements OnInit {
     
       }
     refreshDT(){
-        this.MS.getMaestros().subscribe(data1 => {
+        this.CS.getCarreras().subscribe(data1 => {
             data1.forEach(function(element) {
                 if(element.status=='A'){element.status=true}else element.status=false;               
                 });
-                 this.maestros=data1;
+                 this.carreras=data1;
             });    
     }
     open(accion,id$,content) {
         //this.clear();
         if(accion=='editar'){
         console.log(id$);
-              this.MS.getMaestro(id$).subscribe(maestros => {
-                console.log(maestros);
-                //console.log(maestros.User[0].nombre);
-                this.maestrosForm.controls['inicio'].setValue(maestros[0].nombre);
-                this.maestrosForm.controls['apellido'].setValue(maestros[0].apellido);
-                this.maestrosForm.controls['status'].setValue(maestros[0].status);
+              this.CS.getCarrera(id$).subscribe(carreras => {
+                console.log(carreras);
+                //console.log(carreras.User[0].nombre);
+                this.carrerasForm.controls['inicio'].setValue(carreras[0].nombre);
+                this.carrerasForm.controls['status'].setValue(carreras[0].status);
               });}
         //console.log(accion,id$);
           this.modalService.open(content).result.then((result) => {
               this.closeResult = `${result}`;
               if(accion=='registrar'){
               if(this.closeResult=='Aceptar'){
-                  this.agregarmaestros();}
+                  this.agregarcarreras();}
           }else if(accion=='editar'){
             if(this.closeResult=='Aceptar'){
             //console.log("eliminaaaaaa");
-              this.editarmaestros(id$);
+              this.editarcarreras(id$);
             }}
           }, (reason) => {
               console.log(reason);
@@ -97,26 +96,24 @@ export class MaestroComponent implements OnInit {
 
 
     ngOnInit() {
-        this.maestrosForm= this.pf.group({
+        this.carrerasForm= this.pf.group({
             nombre: ['', Validators.required],
-            apellido: ['', Validators.required ],
             status: ['', Validators.required ],
           });  
     }
-    savemaestro() {
-      const savemaestro = {
-        nombre: this.maestrosForm.get('inicio').value,
-        apellido: this.maestrosForm.get('apellido').value,
-        status: this.maestrosForm.get('status').value
+    savecarrera() {
+      const savecarrera = {
+        nombre: this.carrerasForm.get('inicio').value,
+        status: this.carrerasForm.get('status').value
       };
-      return savemaestro;
+      return savecarrera;
 }
-editarmaestros(id$) {
-  this.maestro = this.savemaestro();
-  console.log(this.maestro);
-  this.MS.putMaestro(id$,this.maestro).subscribe(newpre => { 
+editarcarreras(id$) {
+  this.carrera = this.savecarrera();
+  console.log(this.carrera);
+  this.CS.putCarrera(id$,this.carrera).subscribe(newpre => { 
   this.refreshDT();
-  this.maestro=[];
+  this.carrera=[];
 
 //this.router.navigate(['/clientes'])
 //alert('Datos Cliente ->  ' + this.id + ' Actualizados');
