@@ -64,7 +64,7 @@ export class CarreraComponent implements OnInit {
               this.CS.getCarrera(id$).subscribe(carreras => {
                 console.log(carreras);
                 //console.log(carreras.User[0].nombre);
-                this.carrerasForm.controls['inicio'].setValue(carreras[0].nombre);
+                this.carrerasForm.controls['nombre'].setValue(carreras[0].nombre);
                 this.carrerasForm.controls['status'].setValue(carreras[0].status);
               });}
         //console.log(accion,id$);
@@ -103,7 +103,7 @@ export class CarreraComponent implements OnInit {
     }
     savecarrera() {
       const savecarrera = {
-        nombre: this.carrerasForm.get('inicio').value,
+        nombre: this.carrerasForm.get('nombre').value,
         status: this.carrerasForm.get('status').value
       };
       return savecarrera;

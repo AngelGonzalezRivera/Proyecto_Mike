@@ -4,8 +4,8 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 @Injectable()
 export class CarreraService {
   Dominio='localhost';
-  preURL='http://'+this.Dominio+':3000/Carrera/';
-  change='http://'+this.Dominio+':3000/Carrera/changeStatus/'
+  preURL='http://'+this.Dominio+':3000/Carreras/';
+  change='http://'+this.Dominio+':3000/Carreras/changeStatus/'
 
   constructor(private http: Http,) { }
   postCarrera(carrera: any) {

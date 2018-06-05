@@ -4,8 +4,8 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 @Injectable()
 export class CursoService {
   Dominio='localhost';
-  preURL='http://'+this.Dominio+':3000/Curso/';
-  change='http://'+this.Dominio+':3000/Curso/changeStatus/'
+  preURL='http://'+this.Dominio+':3000/Cursos/';
+  change='http://'+this.Dominio+':3000/Cursos/changeStatus/'
 
   constructor(private http: Http,) { }
   postCurso(curso: any) {

@@ -64,7 +64,7 @@ export class MaestroComponent implements OnInit {
               this.MS.getMaestro(id$).subscribe(maestros => {
                 console.log(maestros);
                 //console.log(maestros.User[0].nombre);
-                this.maestrosForm.controls['inicio'].setValue(maestros[0].nombre);
+                this.maestrosForm.controls['nombre'].setValue(maestros[0].nombre);
                 this.maestrosForm.controls['apellido'].setValue(maestros[0].apellido);
                 this.maestrosForm.controls['status'].setValue(maestros[0].status);
               });}
@@ -105,7 +105,7 @@ export class MaestroComponent implements OnInit {
     }
     savemaestro() {
       const savemaestro = {
-        nombre: this.maestrosForm.get('inicio').value,
+        nombre: this.maestrosForm.get('nombre').value,
         apellido: this.maestrosForm.get('apellido').value,
         status: this.maestrosForm.get('status').value
       };
