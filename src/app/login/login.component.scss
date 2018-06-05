@@ -14,6 +14,8 @@ hr {
   
   background: #FFFFFF;
   max-width: 100%;
+ // padding-top: 4rem;
+ // padding-bottom: 4rem;
   //margin: 0 auto 100px;
   padding: 45px;
   //text-align: center;
@@ -35,7 +37,7 @@ hr {
   text-transform: uppercase;
   outline: 0;
   background: rgb(47, 132, 202);
-  width: 20%;
+  width: auto;
   border: 0;
   padding: 15px;
   color: #FFFFFF;
@@ -51,7 +53,7 @@ hr {
   background-color: white;
   color: rgb(66, 163, 228);
   border: 1.5px solid rgb(66, 163, 228);
-  transform: scale(1.2);
+  
 }
 
 .fondo-login{
@@ -82,10 +84,13 @@ hr {
   border: 1.5px solid gray;
   box-shadow: 0 5px 10px gray;
   width: 70%;
+  background-color: grey;
+
 }
 .imagen-estilo{
   align-self: center;
   width: 35%;
+  z-index:10;
 }
 .imagen-estilo1{
   align-self: center;
@@ -101,5 +106,7 @@ hr {
   display:flex;
   flex-direction: row;
   justify-content: space-between;
+  /*padding-top: 5rem;
+  padding-bottom: 5rem;*/
 
 }
