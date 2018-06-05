@@ -7,12 +7,12 @@ $topnav-background-color: #004A9B;
     z-index: 1000;
     top: 49px;
     left: 235px;
-    width: 235px;
+    width: 250px;
     margin-left: -235px;
     border: none;
     border-radius: 0;
     overflow-y: auto;
-    background-color: $topnav-background-color;
+    background-color: rgb(194, 194, 194);
     bottom: 0;
     overflow-x: hidden;
     padding-bottom: 40px;
@@ -24,21 +24,23 @@ $topnav-background-color: #004A9B;
     // border-top: 1px solid rgba(255,255,255,0.3);
     .list-group{
         a.list-group-item {
-            background: $topnav-background-color;
+            background-color:rgb(194, 194, 194);
             border: 0;
             border-radius: 0;
-            color: goldenrod;
+            color: #004A9B;
+            font-weight: 600;
             text-decoration: none;
             .fa {
                 margin-right: 10px;
             }
         }
         a:hover {
-            background: goldenrod;
+            
+            background: #FFFF;
             color: darken($topnav-background-color, 5%);
         }
         a.router-link-active {
-            background: goldenrod;
+            background: #FFFF;
             color: darken($topnav-background-color, 5%);
         }
     }
@@ -64,7 +66,7 @@ $topnav-background-color: #004A9B;
                 }
             }
             a:hover,a:focus {
-                color: #fff;
+                color: #FFF;
                 outline: none;
                 outline-offset: -2px;
             }
@@ -73,7 +75,7 @@ $topnav-background-color: #004A9B;
             background: darken($topnav-background-color, 5%);
         }
         .panel-collapse {
-            border-radious :0;
+            border-radius :0;
             border : none;
             .panel-body {
                 .list-group-item {
@@ -112,17 +114,32 @@ $topnav-background-color: #004A9B;
             height: auto;
             li {
                 a {
-                    color: #FFF;
+                    color: #004A9B;
                     padding: 10px;
                     display: block;
+                    text-decoration: none;
                 }
             }
         }
     }
 }
+
+.imagen-estilo1{
+    display: flex;
+    align-self: center;
+    width: 70%;
+    opacity: 1;
+}
+
 @media screen and (max-width: 992px) {
     .sidebar {
         top: 48px;
         left: 0px;
+        font-size: 15px;
+
+        left: 235px;
+        width: 240px;
     }
+       
+   
 }

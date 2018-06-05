@@ -1,0 +1,50 @@
+.container .card .card-body .card-title.titulo{
+    font-size:20pt;
+    color: #424242;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.container .card .card-body .btn.btn-primary.boton{
+    background-color: #0054ef;
+    border: 0px solid #0054ef;
+    font-weight: 600;
+    border-radius: 15px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    transition: all .3s ease-in-out;
+}
+.container .card .card-body .btn.btn-primary.boton:hover{
+    background-color: #ffffff;
+    border: 0px solid #ffffff;
+    color: #0054ef;
+    transform: scale(0.8);
+}
+.main-container{
+    padding: 0px;
+}
+.container .card{
+    border:1.5px solid #c7c4c4;
+}
+.container .card:hover{
+    border: 1.5px solid #0054ef;
+    box-shadow: 0px 1px 8px #008fef;
+}
+
+.flex-imagenes {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.flex-imagenes .item1{
+    flex: 0 1 auto;
+}
+.imagen-estilo1{
+    align-self: center;
+    width: auto;
+    height: 10rem;
+}
+.linea-style{
+    width: 50%;
+    background-color: #0054ef;
+    padding: 1px;
+    margin-right: 49%;
+}
