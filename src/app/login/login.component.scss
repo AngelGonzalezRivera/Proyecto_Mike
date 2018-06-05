@@ -1,22 +1,23 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 .login-page {
-  width: 360px;
-  padding: 8% 0 0;
-  margin: auto;
+  width: 100%;
+  //padding: 8% 0 0;
+ // margin: auto;
 }
 hr {
     clear: both;
     visibility: hidden;
 }
+
 .form {
   
   background: #FFFFFF;
-  max-width: 350px;
-  margin: 0 auto 100px;
+  max-width: 100%;
+  //margin: 0 auto 100px;
   padding: 45px;
-  text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  //text-align: center;
+  //box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 .form input {
   font-family: "Roboto", sans-serif;
@@ -27,14 +28,14 @@ hr {
   margin: 0 0 15px;
   padding: 15px;
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: 14pt;
 }
 .form button {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
   background: rgb(47, 132, 202);
-  width: 100%;
+  width: 20%;
   border: 0;
   padding: 15px;
   color: #FFFFFF;
@@ -42,7 +43,63 @@ hr {
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
+  font-size: 15pt;
 }
+
+
 .form button:hover,.form button:active,.form button:focus {
-  background: rgb(66, 163, 228);
+  background-color: white;
+  color: rgb(66, 163, 228);
+  border: 1.5px solid rgb(66, 163, 228);
+  transform: scale(1.2);
+}
+
+.fondo-login{
+  background-image: url(/assets/images/FONDO-LOGIN.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+.flex-login{
+  display: flex;
+  flex-direction: column;
+  justify-content: normal;
+
+}
+.estilo-label{
+  font-size: 14pt;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: left;
+}
+.estilo-titulo{
+  font-size: 22pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  
+}
+.estilo-linea{
+  border: 1.5px solid gray;
+  box-shadow: 0 5px 10px gray;
+  width: 70%;
+}
+.imagen-estilo{
+  align-self: center;
+  width: 35%;
+}
+.imagen-estilo1{
+  align-self: center;
+  width: 25%;
+  opacity: 0.5;
+}
+.imagen-estilo3{
+  align-self: center;
+  width: 25%;
+  opacity: 0.5;
+}
+.flex-footer{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+
 }
