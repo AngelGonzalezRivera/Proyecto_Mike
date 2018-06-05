@@ -16,23 +16,25 @@
     </div>
     <ul class="list-group">
         
+            <img class="imagen-estilo1 p-3" src="/assets/images/FONDO-AGUILA.png" > 
+    
         <a routerLink="/dashboard" (click)="oculta()" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-dashboard"></i>&nbsp;{{ 'Dashboard' }}
+            <i class="fa fa-fw fa-dashboard"></i>&nbsp;{{ 'ADMINISTRADOR' }}
         </a>
         <a [routerLink]="['/usuarios']" (click)="oculta()" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-users"></i>&nbsp;{{ 'Usuarios' }}
+            <i class="fa fa-users"></i>&nbsp;{{ 'USUARIOS' }}
         </a>
         <!-- <a [routerLink]="['/catalogos']" (click)="oculta()" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-table"></i>&nbsp;{{ 'Catalogos'}}
         </a> -->
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('pages0')">
-                <span><i class="fa fa-university"></i>&nbsp; {{ 'Catalogos'}}</span>
+                <span><i class="fa fa-university"></i>&nbsp; {{ 'CATALAGOS'}}</span>
             </a>
             <li class="nested" [class.expand]="showMenu === 'pages0'">
                 <ul class="submenu">
                     <li>
-                        <a  href="javascript:void(0)" (click)="oculta()" [routerLink]="['/maestro']"><span><i class="fa fa-plus"></i>&nbsp;{{ 'Maestros' }}</span></a>
+                        <a  href="javascript:void(0)" (click)="oculta()" [routerLink]="['/maestro']"><span><i class="fa fa-plus"></i>&nbsp;{{ 'MAESTROS' }}</span></a>
                     </li>
                     <!-- <li>
                         <a style="color: rgb(59, 59, 59)" href="javascript:void(0)" (click)="oculta()" [routerLink]="['/sectores']"><span><i class="fa fa-plus"></i>&nbsp;{{ 'Sectores' }}</span></a>
@@ -50,7 +52,7 @@
             </li>
         </div>
         <a [routerLink]="['/asistencia']" (click)="oculta()" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-table"></i>&nbsp;{{ 'plan de semestre'}}
+            <i class="fa fa-fw fa-table"></i>&nbsp;{{ 'PLAN DE SEMESTRE'}}
         </a>
         <!--<a [routerLink]="['/catalogos']" (click)="oculta()" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-edit"></i>&nbsp;{{ 'Catálogos'}}
@@ -77,7 +79,7 @@
             <i class="fa fa-star"></i>&nbsp;{{ 'Calificaciones' }}
         </a>-->
         <a [routerLink]="['/reportes']" (click)="oculta()" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-line-chart"></i>&nbsp;{{ 'Reportes' }}
+            <i class="fa fa-line-chart"></i>&nbsp;{{ 'REPORTES' }}
         </a>
         
     </ul>
