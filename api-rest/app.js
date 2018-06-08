@@ -7,6 +7,10 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var Maestros = require('./routes/Maestros');
+var Cursos = require('./routes/curso');
+var Carreras = require('./routes/carrera');
+var Plan = require('./routes/plan');
+
 var nodemailer = require('nodemailer');
 var async = require('async');
 var crypto = require('crypto');
@@ -38,6 +42,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/Maestros', Maestros);
+app.use('/Cursos', Cursos);
+app.use('/Carreras', Carreras);
+app.use('/Plan', Plan);
+app.use('/Cursos', Cursos);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
