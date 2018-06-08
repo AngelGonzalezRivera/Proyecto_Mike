@@ -18,7 +18,7 @@ deletecarrera:function(id,callback){
  return  db.get().query("delete from carrera where id=?",[id],callback);
 },
 updatecarrera:function(id,carrera,callback){
- return  db.get().query("update carrera set nombre=?,status=?, where id=?",[carrera.nombre,carrera.status,id],callback);
+ return  db.get().query("update carrera set nombre=?,status=? where id=?",[carrera.nombre,carrera.status,id],callback);
 },
 updateStatus:function(id,status, callback){
     return  db.get().query('update carrera set status=? where id=?', [status,id],callback);
