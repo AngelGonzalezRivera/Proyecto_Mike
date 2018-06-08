@@ -14,6 +14,7 @@ export class CursoComponent implements OnInit {
 
     agregarcursos(){
       this.curso=this.savecurso();
+      this.curso.status='A';
       this.CS.postCurso(this.curso).subscribe(newpres => {
         console.log(newpres);
         if(newpres.status==200){
@@ -66,7 +67,6 @@ export class CursoComponent implements OnInit {
                 //console.log(cursos.User[0].inicio);
                 this.cursosForm.controls['inicio'].setValue(cursos[0].inicio);
                 this.cursosForm.controls['fin'].setValue(cursos[0].fin);
-                this.cursosForm.controls['status'].setValue(cursos[0].status);
               });}
         //console.log(accion,id$);
           this.modalService.open(content).result.then((result) => {
@@ -100,19 +100,21 @@ export class CursoComponent implements OnInit {
         this.cursosForm= this.pf.group({
             inicio: ['', Validators.required],
             fin: ['', Validators.required ],
-            status: ['', Validators.required ],
           });  
     }
     savecurso() {
       const savecurso = {
         inicio: this.cursosForm.get('inicio').value,
         fin: this.cursosForm.get('fin').value,
-        status: this.cursosForm.get('status').value
       };
       return savecurso;
 }
 editarcursos(id$) {
   this.curso = this.savecurso();
+  this.CS.getCurso(id$).subscribe(val=>{
+    this.curso.status=val[0].status;
+
+
   console.log(this.curso);
   this.CS.putCurso(id$,this.curso).subscribe(newpre => { 
   this.refreshDT();
@@ -121,6 +123,8 @@ editarcursos(id$) {
 //this.router.navigate(['/clientes'])
 //alert('Datos Cliente ->  ' + this.id + ' Actualizados');
 })  // call the rest of the code and have it execute after 3 seconds
+})
+
 setTimeout(null, 1500);
 
 }
