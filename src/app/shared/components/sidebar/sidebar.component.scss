@@ -132,6 +132,12 @@ $topnav-background-color: #004A9B;
     box-shadow: 0px 5px 6px grey;
 
 }
+@media screen and (max-width: 1024px) {
+    .sidebar{
+        width:225px;
+        font-size: 14px;
+    }
+}
 
 @media screen and (max-width: 992px) {
     .sidebar {
