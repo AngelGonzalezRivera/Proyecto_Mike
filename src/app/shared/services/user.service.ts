@@ -84,9 +84,7 @@ export class UserService {
         console.log("hola");
         const newpres = JSON.stringify(user);
         const headers = new Headers({'Content-Type': 'application/json'});
-        return this.http.post(this.registro, newpres, {headers}).map(res => { 
-            return res;
-          })
+        return this.http.post(this.registro, newpres, {headers}).map( res => res.json());
       }
       delUser(id$: any) {
         const url = this.baja + id$;

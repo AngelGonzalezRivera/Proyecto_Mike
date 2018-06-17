@@ -23,6 +23,7 @@
                         <!--<div *ngIf="resultados">  -->
                             <p-dataTable  [tableStyle]="{'table-layout':'auto'}"  [value]="cursos" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [pageLinks]="3" [responsive]="true" [style]="{'width': '900'}" [globalFilter]="gb" #dt>
                                <!-- <p-column [style]="{'width':'50px'}" field="idUsuario" header="ID" ></p-column>-->
+                               <p-column  [style]="{'width':'30%'}" field="descripcion" header="Descripción"></p-column>
                             <p-column  [style]="{'width':'30%'}" field="inicio" header="Fecha de Inicio"></p-column>
                             <p-column  [style]="{'width':'30%'}" field="fin" header="Fecha de Fin"></p-column>
                             <p-column  [style]="{'width':'100'}"  header="Estatus">        
@@ -59,6 +60,13 @@
             <div class="row">
                     <div class="col-md-12">
                         <form [formGroup]="cursosForm" (ngSubmit)="onSubmit()" >
+                            <div class="form-group">
+                                    <i class="fa fa-check-circle check" *ngIf="cursosForm.controls.descripcion.valid"></i>
+                                    <i class="fa fa-exclamation-circle uncheck" *ngIf="cursosForm.controls.descripcion.invalid && cursosForm.controls.descripcion.touched"></i>                            
+                                    <label for="descripcion">Descripción</label>         
+                                    <input type="text" class="form-control" formControlName="descripcion" id="descripcion"  required>
+                                    <p class="alert alert-danger" *ngIf="cursosForm.controls.descripcion.invalid && cursosForm.controls.descripcion.touched">El campo "Descripción" es obligatorio.</p>                                                
+                            </div>
                             <div class="form-group">
                                 <i class="fa fa-check-circle check" *ngIf="cursosForm.controls.inicio.valid"></i>
                                 <i class="fa fa-exclamation-circle uncheck" *ngIf="cursosForm.controls.inicio.invalid && cursosForm.controls.inicio.touched"></i>                            
@@ -128,7 +136,15 @@
                 <div class="row">
                         <div class="col-md-12">
                             <form [formGroup]="cursosForm" (ngSubmit)="onSubmit()" >
-                                <div class="form-group">
+                                
+                                        <div class="form-group">
+                                                <i class="fa fa-check-circle check" *ngIf="cursosForm.controls.descripcion.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="cursosForm.controls.descripcion.invalid && cursosForm.controls.descripcion.touched"></i>                            
+                                              <label for="descripcion">Descripción</label>         
+                                              <input type="text" class="form-control" formControlName="descripcion" id="descripcion"  required>
+                                              <p class="alert alert-danger" *ngIf="cursosForm.controls.descripcion.invalid && cursosForm.controls.descripcion.touched">El campo "Descripción" es obligatorio.</p>                                                
+                                            </div>
+                                            <div class="form-group">
                                     <i class="fa fa-check-circle check" *ngIf="cursosForm.controls.inicio.valid"></i>
                                     <i class="fa fa-exclamation-circle uncheck" *ngIf="cursosForm.controls.inicio.invalid && cursosForm.controls.inicio.touched"></i>                            
                                   <label for="inicio">Fecha de Inicio</label>         

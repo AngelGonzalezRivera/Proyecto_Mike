@@ -122,8 +122,8 @@ app.post('/user/create', function(req, res) {
           idPermiso:user.idPermiso,
         };
         //console.log(newUser);
-
-        res.status(201).send("ok");}
+        result.status=201;
+        res.json(result);}
       });
     }
     else res.status(400).send("Un usuario con este Correo Electronico ya Existe");

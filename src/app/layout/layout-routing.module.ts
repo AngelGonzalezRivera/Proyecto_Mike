@@ -15,7 +15,9 @@ const routes: Routes = [
             { path: 'reportes', loadChildren: './reportes/reportes.module#ReportesModule' },
             { path: 'maestro', loadChildren: './maestro/maestro.module#MaestroModule' },
             { path: 'carrera', loadChildren: './carrera/carrera.module#CarreraModule' },
-            { path: 'curso', loadChildren: './curso/curso.module#CursoModule' }
+            { path: 'curso', loadChildren: './curso/curso.module#CursoModule' },
+            { path: 'semestre', loadChildren: './semestre/semestre.module#SemestreModule' },
+            { path: 'grupo', loadChildren: './grupo/grupo.module#GrupoModule' }
         ]
     }
 ];

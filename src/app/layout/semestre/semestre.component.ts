@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { CarreraService } from '../../shared/services/Carrera.service';
+import { SemestreService } from '../../shared/services/semestre.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-carrera',
-    templateUrl: './carrera.component.html',
-    styleUrls: ['./carrera.component.scss']
+    selector: 'app-semestre',
+    templateUrl: './semestre.component.html',
+    styleUrls: ['./semestre.component.scss']
 })
-export class CarreraComponent implements OnInit {
+export class SemestreComponent implements OnInit {
 
 
-    agregarcarreras(){
-      this.carrera=this.savecarrera();
-      this.CS.postCarrera(this.carrera).subscribe(newpres => {
+    agregarsemestres(){
+      this.semestre=this.savesemestre();
+      this.semestre.status='A';
+      this.CS.postSemestre(this.semestre).subscribe(newpres => {
         console.log(newpres);
         if(newpres.status==200){
           alert("Registro Realizado Correctamente");
@@ -26,13 +27,13 @@ export class CarreraComponent implements OnInit {
         //console.log("ok"); 
         //window.location.reload()
         this.refreshDT();
-        this.carrera=[];
+        this.semestre=[];
       });    }
-    carrera:any;
-    carreras:any;
-    carrerasForm:FormGroup;
+    semestre:any;
+    semestres:any;
+    semestresForm:FormGroup;
     closeResult:any;
-    constructor(public CS:CarreraService, private pf: FormBuilder,private modalService: NgbModal,private router:Router) { 
+    constructor(public CS:SemestreService, private pf: FormBuilder,private modalService: NgbModal,private router:Router) { 
         this.refreshDT();
     }
     change(id$,status){
@@ -50,32 +51,44 @@ export class CarreraComponent implements OnInit {
     
       }
     refreshDT(){
-        this.CS.getCarreras().subscribe(data1 => {
+        this.CS.getSemestres().subscribe(data1 => {
             data1.forEach(function(element) {
+                let date:String;
+                date=element.inicio;
+                element.inicio=date.substr(0,10);
+                date=element.fin;
+                element.fin=date.substr(0,10);
                 if(element.status=='A'){element.status=true}else element.status=false;               
                 });
-                 this.carreras=data1;
+                 this.semestres=data1;
             });    
     }
     open(accion,id$,content) {
         //this.clear();
         if(accion=='editar'){
         console.log(id$);
-              this.CS.getCarrera(id$).subscribe(carreras => {
-                console.log(carreras);
-                //console.log(carreras.User[0].nombre);
-                this.carrerasForm.controls['nombre'].setValue(carreras[0].nombre);
+              this.CS.getSemestre(id$).subscribe(semestres => {
+                let date:String;
+                date=semestres[0].inicio;
+                semestres[0].inicio=date.substr(0,10);
+                date=semestres[0].fin;
+                semestres[0].fin=date.substr(0,10);
+                console.log(semestres[0]);
+                //console.log(semestres.User[0].inicio);
+                this.semestresForm.controls['semestre'].setValue(semestres[0].semestre);
+                this.semestresForm.controls['inicio'].setValue(semestres[0].inicio);
+                this.semestresForm.controls['fin'].setValue(semestres[0].fin);
               });}
         //console.log(accion,id$);
           this.modalService.open(content).result.then((result) => {
               this.closeResult = `${result}`;
               if(accion=='registrar'){
               if(this.closeResult=='Aceptar'){
-                  this.agregarcarreras();}
+                  this.agregarsemestres();}
           }else if(accion=='editar'){
             if(this.closeResult=='Aceptar'){
             //console.log("eliminaaaaaa");
-              this.editarcarreras(id$);
+              this.editarsemestres(id$);
             }}
           }, (reason) => {
               console.log(reason);
@@ -95,26 +108,36 @@ export class CarreraComponent implements OnInit {
 
 
     ngOnInit() {
-        this.carrerasForm= this.pf.group({
-            nombre: ['', Validators.required],
+        this.semestresForm= this.pf.group({
+          semestre: ['', Validators.required],
+            inicio: ['', Validators.required],
+            fin: ['', Validators.required ],
           });  
     }
-    savecarrera() {
-      const savecarrera = {
-        nombre: this.carrerasForm.get('nombre').value,
+    savesemestre() {
+      const savesemestre = {
+        semestre: this.semestresForm.get('semestre').value,
+        inicio: this.semestresForm.get('inicio').value,
+        fin: this.semestresForm.get('fin').value,
       };
-      return savecarrera;
+      return savesemestre;
 }
-editarcarreras(id$) {
-  this.carrera = this.savecarrera();
-  console.log(this.carrera);
-  this.CS.putCarrera(id$,this.carrera).subscribe(newpre => { 
+editarsemestres(id$) {
+  this.semestre = this.savesemestre();
+  this.CS.getSemestre(id$).subscribe(val=>{
+    this.semestre.status=val[0].status;
+
+
+  console.log(this.semestre);
+  this.CS.putSemestre(id$,this.semestre).subscribe(newpre => { 
   this.refreshDT();
-  this.carrera=[];
+  this.semestre=[];
 
 //this.router.navigate(['/clientes'])
 //alert('Datos Cliente ->  ' + this.id + ' Actualizados');
 })  // call the rest of the code and have it execute after 3 seconds
+})
+
 setTimeout(null, 1500);
 
 }
