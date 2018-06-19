@@ -1,20 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { CarreraService } from '../../shared/services/Carrera.service';
+import { GrupoService } from '../../shared/services/grupo.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { SemestreService } from '../../shared/services/semestre.service';
 
 @Component({
-    selector: 'app-carrera',
-    templateUrl: './carrera.component.html',
-    styleUrls: ['./carrera.component.scss']
+    selector: 'app-grupo',
+    templateUrl: './grupo.component.html',
+    styleUrls: ['./grupo.component.scss']
 })
-export class CarreraComponent implements OnInit {
+export class GrupoComponent implements OnInit {
 
-
-    agregarcarreras(){
-      this.carrera=this.savecarrera();
-      this.CS.postCarrera(this.carrera).subscribe(newpres => {
+semestres:any;
+    agregargrupos(){
+      this.grupo=this.savegrupo();
+      this.grupo.status='A';
+      this.CS.postGrupo(this.grupo).subscribe(newpres => {
         console.log(newpres);
         if(newpres.status==200){
           alert("Registro Realizado Correctamente");
@@ -26,13 +28,13 @@ export class CarreraComponent implements OnInit {
         //console.log("ok"); 
         //window.location.reload()
         this.refreshDT();
-        this.carrera=[];
+        this.grupo=[];
       });    }
-    carrera:any;
-    carreras:any;
-    carrerasForm:FormGroup;
+    grupo:any;
+    grupos:any;
+    gruposForm:FormGroup;
     closeResult:any;
-    constructor(public CS:CarreraService, private pf: FormBuilder,private modalService: NgbModal,private router:Router) { 
+    constructor(public SS:SemestreService,public CS:GrupoService, private pf: FormBuilder,private modalService: NgbModal,private router:Router) { 
         this.refreshDT();
     }
     change(id$,status){
@@ -50,32 +52,40 @@ export class CarreraComponent implements OnInit {
     
       }
     refreshDT(){
-        this.CS.getCarreras().subscribe(data1 => {
+        this.CS.getGrupos().subscribe(data1 => {
             data1.forEach(function(element) {
                 if(element.status=='A'){element.status=true}else element.status=false;               
                 });
-                 this.carreras=data1;
+                 this.grupos=data1;
             });    
+            this.SS.getSemestres().subscribe(data1 => {
+              data1.forEach(function(element) {
+                  if(element.status=='A'){element.status=true}else element.status=false;               
+                  });
+                   this.semestres=data1;
+              }); 
     }
     open(accion,id$,content) {
         //this.clear();
         if(accion=='editar'){
         console.log(id$);
-              this.CS.getCarrera(id$).subscribe(carreras => {
-                console.log(carreras);
-                //console.log(carreras.User[0].nombre);
-                this.carrerasForm.controls['nombre'].setValue(carreras[0].nombre);
+              this.CS.getGrupo(id$).subscribe(grupos => {
+                
+                //console.log(grupos.User[0].generation);
+                this.gruposForm.controls['grupo'].setValue(grupos[0].grupo);
+                this.gruposForm.controls['generation'].setValue(grupos[0].generation);
+                this.gruposForm.controls['id_semestre'].setValue(grupos[0].id_semestre);
               });}
         //console.log(accion,id$);
           this.modalService.open(content).result.then((result) => {
               this.closeResult = `${result}`;
               if(accion=='registrar'){
               if(this.closeResult=='Aceptar'){
-                  this.agregarcarreras();}
+                  this.agregargrupos();}
           }else if(accion=='editar'){
             if(this.closeResult=='Aceptar'){
             //console.log("eliminaaaaaa");
-              this.editarcarreras(id$);
+              this.editargrupos(id$);
             }}
           }, (reason) => {
               console.log(reason);
@@ -95,26 +105,36 @@ export class CarreraComponent implements OnInit {
 
 
     ngOnInit() {
-        this.carrerasForm= this.pf.group({
-            nombre: ['', Validators.required],
+        this.gruposForm= this.pf.group({
+          grupo: ['', Validators.required],
+          generation: ['', Validators.required],
+          id_semestre: ['', Validators.required ],
           });  
     }
-    savecarrera() {
-      const savecarrera = {
-        nombre: this.carrerasForm.get('nombre').value,
+    savegrupo() {
+      const savegrupo = {
+        grupo: this.gruposForm.get('grupo').value,
+        generation: this.gruposForm.get('generation').value,
+        id_semestre: this.gruposForm.get('id_semestre').value,
       };
-      return savecarrera;
+      return savegrupo;
 }
-editarcarreras(id$) {
-  this.carrera = this.savecarrera();
-  console.log(this.carrera);
-  this.CS.putCarrera(id$,this.carrera).subscribe(newpre => { 
+editargrupos(id$) {
+  this.grupo = this.savegrupo();
+  this.CS.getGrupo(id$).subscribe(val=>{
+    this.grupo.status=val[0].status;
+
+
+  console.log(this.grupo);
+  this.CS.putGrupo(id$,this.grupo).subscribe(newpre => { 
   this.refreshDT();
-  this.carrera=[];
+  this.grupo=[];
 
 //this.router.navigate(['/clientes'])
 //alert('Datos Cliente ->  ' + this.id + ' Actualizados');
 })  // call the rest of the code and have it execute after 3 seconds
+})
+
 setTimeout(null, 1500);
 
 }

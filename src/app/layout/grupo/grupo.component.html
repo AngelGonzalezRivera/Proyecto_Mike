@@ -1,0 +1,188 @@
+<app-page-header [heading]="'grupo'" [icon]="'fa fa-fw fa-edit'"></app-page-header>
+<div class="pull-right">
+    <button class="btn btn-primary" routerLink="/grupo" (click)="open('registrar',0,content)"><b>+</b> Registrar grupo </button>                                    
+</div>
+<br>
+<br>
+<div class="container-fluid">
+    <div class="row">
+            <div class="col col-xl-12 col-lg-12">
+                    <div class="card mb-3">
+                    <div class="card-block table-responsive">
+                        <br><br>
+                        <!-- <div *ngIf="cargando" class="text-center" style="padding-top: 60px;">
+                                <img src="../../../assets/spinner.gif">
+                        </div> -->
+                        <div style="text-align:center;">
+                            Busqueda: <input type="text" pInputText placeholder="Filtro de Busqueda..." #gb pInputText >
+                            <a  class="search-icon">
+                                <i class="fa fa-search" id="myimage"></i>
+                            </a>
+</div>
+<br>
+                        <!--<div *ngIf="resultados">  -->
+                            <p-dataTable  [tableStyle]="{'table-layout':'auto'}"  [value]="grupos" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [pageLinks]="3" [responsive]="true" [style]="{'width': '900'}" [globalFilter]="gb" #dt>
+                               <!-- <p-column [style]="{'width':'50px'}" field="idUsuario" header="ID" ></p-column>-->
+                               <p-column  [style]="{'width':'30%'}" field="grupo" header="Grupo"></p-column>
+                            <p-column  [style]="{'width':'30%'}" field="generation" header="Generación"></p-column>
+                            <p-column  [style]="{'width':'30%'}" field="id_semestre" header="Semestre"></p-column>
+                            <p-column  [style]="{'width':'100'}"  header="Estatus">        
+                            <ng-template let-i="rowIndex" pTemplate="body">
+                                    <p-toggleButton onLabel="Activo" offLabel="Inactivo" [(ngModel)]="grupos[i].status" (click)="change(grupos[i].id,grupos[i].status)"> </p-toggleButton> 
+                            </ng-template>-->
+                           </p-column>                             
+                           <p-column header="Acciones" [style]="{'width':'80'}" >        
+                                <ng-template let-h="rowIndex" pTemplate="body">
+                                    <button (click)="open('editar',grupos[h].id,content3)" type="button" class="btn btn-success" >
+                                    Editar
+                                    </button>
+                                    <!-- <button (click)="open('eliminar',cars[h].idUsuario,content2)" type="button" class="btn btn-danger">
+                                      Eliminar
+                                      </button> -->
+                                </ng-template>
+                           </p-column> 
+                          </p-dataTable>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+    <h4 class="modal-title">Registro de grupo</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('cerrar')">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+            <div class="row">
+                    <div class="col-md-12">
+                        <form [formGroup]="gruposForm" (ngSubmit)="onSubmit()" >
+                            <div class="form-group">
+                                    <i class="fa fa-check-circle check" *ngIf="gruposForm.controls.grupo.valid"></i>
+                                    <i class="fa fa-exclamation-circle uncheck" *ngIf="gruposForm.controls.grupo.invalid && gruposForm.controls.grupo.touched"></i>                            
+                                    <label for="grupo">Grupo</label>         
+                                    <input type="text" class="form-control" formControlName="grupo" id="grupo"  required>
+                                    <p class="alert alert-danger" *ngIf="gruposForm.controls.grupo.invalid && gruposForm.controls.grupo.touched">El campo "Grupo" es obligatorio.</p>                                                
+                            </div>
+                            <div class="form-group">
+                                <i class="fa fa-check-circle check" *ngIf="gruposForm.controls.generation.valid"></i>
+                                <i class="fa fa-exclamation-circle uncheck" *ngIf="gruposForm.controls.generation.invalid && gruposForm.controls.generation.touched"></i>                            
+                              <label for="generation">Generación</label>         
+                              <input type="text" class="form-control" formControlName="generation" id="generation"  required>
+                              <p class="alert alert-danger" *ngIf="gruposForm.controls.generation.invalid && gruposForm.controls.generation.touched">El campo "generation" es obligatorio.</p>                                                
+                            </div>
+                            <div class="form-group">
+                                    <i class="fa fa-check-circle check" *ngIf="gruposForm.controls.id_semestre.valid"></i>
+                                    <i class="fa fa-exclamation-circle uncheck" *ngIf="gruposForm.controls.id_semestre.invalid && gruposForm.controls.id_semestre.touched"></i>                                
+                                <label for="id_semestre">Semestre #</label>      
+                                <select class="form-control" id="id_semestre" formControlName="id_semestre">
+                                                <option value="seleccione" disabled="disabled" selected="selected" hidden="hidden">Seleccione</option>
+                                                <option *ngFor="let item of semestres;" [value]="item.id"> {{item.semestre}}</option>
+                                </select>
+                                </div>
+                            <!-- <div class="form-group">
+                                <i class="fa fa-check-circle check" *ngIf="gruposForm.controls.status.valid"></i>
+                                <i class="fa fa-exclamation-circle uncheck" *ngIf="gruposForm.controls.status.invalid && gruposForm.controls.status.touched"></i>                            
+                              <label for="status">Estatus</label>         
+                              <select class="form-control" id="status" formControlName="status">
+                                    <option value="A" >Activo</option>
+                                    <option value="B" >Inactivo</option>
+
+                            </select>       
+                            <p class="alert alert-danger" *ngIf="gruposForm.controls.status.invalid && gruposForm.controls.status.touched">El campo "status" es obligatorio.</p>                                                
+                        </div> -->
+                            <br>
+                            <br>
+                            <p class="alert alert-danger" *ngIf="!gruposForm.valid">Por favor complete todos los campos</p>
+                            <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" [disabled]="!gruposForm.valid" (click)="c('Aceptar')" >Añadir grupo</button>
+                                    <a class="btn btn-danger" routerLink="/grupo" (click)="c('Cancelar')">Cancelar</a>
+    
+                            </div>           
+                      </form>
+                      </div>
+                  </div>
+    </div>
+    </template>
+
+
+    <!-- <template #content2 let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title">Advertencia</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('cerrar')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>¿Realmente desea dar de baja este Usuario?&hellip;</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="c('Cancelar')">Cancelar</button>
+          <button type="button" class="btn btn-secondary" (click)="c('Aceptar')">Aceptar</button>          
+        </div>
+      </template>    -->
+    
+    
+    
+      <template #content3 let-c="close" let-d="dismiss">
+        <div class="modal-header">
+        <h4 class="modal-title">Edición de grupos</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('cerrar')">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+                <div class="row">
+                        <div class="col-md-12">
+                            <form [formGroup]="gruposForm" (ngSubmit)="onSubmit()" >
+                                
+                                        <div class="form-group">
+                                                <i class="fa fa-check-circle check" *ngIf="gruposForm.controls.grupo.valid"></i>
+                                                <i class="fa fa-exclamation-circle uncheck" *ngIf="gruposForm.controls.grupo.invalid && gruposForm.controls.grupo.touched"></i>                            
+                                              <label for="grupo">Grupo</label>         
+                                              <input type="text" class="form-control" formControlName="grupo" id="grupo"  required>
+                                              <p class="alert alert-danger" *ngIf="gruposForm.controls.grupo.invalid && gruposForm.controls.grupo.touched">El campo "Grupo" es obligatorio.</p>                                                
+                                            </div>
+                                            <div class="form-group">
+                                    <i class="fa fa-check-circle check" *ngIf="gruposForm.controls.generation.valid"></i>
+                                    <i class="fa fa-exclamation-circle uncheck" *ngIf="gruposForm.controls.generation.invalid && gruposForm.controls.generation.touched"></i>                            
+                                  <label for="generation">Generación</label>         
+                                  <input type="number" class="form-control" formControlName="generation" id="generation"  required>
+                                  <p class="alert alert-danger" *ngIf="gruposForm.controls.generation.invalid && gruposForm.controls.generation.touched">El campo "generation" es obligatorio.</p>                                                
+                                </div>
+                                <div class="form-group">
+                                        <i class="fa fa-check-circle check" *ngIf="gruposForm.controls.id_semestre.valid"></i>
+                                        <i class="fa fa-exclamation-circle uncheck" *ngIf="gruposForm.controls.id_semestre.invalid && gruposForm.controls.id_semestre.touched"></i>                                
+                                    <label for="id_semestre">Semestre #</label>      
+                                    <select class="form-control" id="id_semestre" formControlName="id_semestre">
+                                                    <option value="seleccione" disabled="disabled" selected="selected" hidden="hidden">Seleccione</option>
+                                                    <option *ngFor="let item of semestres;" [value]="item.id"> {{item.semestre}}</option>
+                                    </select>
+                                    </div>
+                                <!-- <div class="form-group">
+                                    <i class="fa fa-check-circle check" *ngIf="gruposForm.controls.status.valid"></i>
+                                    <i class="fa fa-exclamation-circle uncheck" *ngIf="gruposForm.controls.status.invalid && gruposForm.controls.status.touched"></i>                            
+                                  <label for="status">Estatus</label>         
+                                  <select class="form-control" id="status" formControlName="status">
+                                        <option value="A" >Activo</option>
+                                        <option value="B" >Inactivo</option>
+    
+                                </select>       
+                                <p class="alert alert-danger" *ngIf="gruposForm.controls.status.invalid && gruposForm.controls.status.touched">El campo "status" es obligatorio.</p>                                                
+                            </div> -->
+                                <br>
+                                <br>
+                                <p class="alert alert-danger" *ngIf="!gruposForm.valid">Por favor complete todos los campos</p>
+                                <div class="modal-footer">
+                                        <button type="button" class="btn btn-success" [disabled]="!gruposForm.valid" (click)="c('Aceptar')" >Guardar cambios</button>
+                                        <a class="btn btn-danger" routerLink="/grupo" (click)="c('Cancelar')">Cancelar</a>
+        
+                                </div>           
+                          </form>
+                          </div>
+                      </div>
+        </div>
+</template>

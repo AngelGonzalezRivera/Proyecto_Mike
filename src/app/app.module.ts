@@ -10,9 +10,10 @@ import { AuthGuard } from './shared';
 import{ AuthenticationService} from './shared/services/authentication.service';
 import{ CarreraService} from './shared/services/Carrera.service';
 import{ CursoService} from './shared/services/Curso.service';
-
+import{ SemestreService} from './shared/services/semestre.service';
 import{ UserService} from './shared/services/user.service';
 import{ MaestroService} from './shared/services/Maestro.service';
+import{ GrupoService} from './shared/services/grupo.service';
 
 import{ PrpropiosService} from './shared/services/prpropios.service';
 export function HttpLoaderFactory(http: Http) {
@@ -36,7 +37,7 @@ export function HttpLoaderFactory(http: Http) {
             }
         })
     ],
-    providers: [CursoService,CarreraService,AuthGuard,AuthenticationService,UserService,PrpropiosService,MaestroService],
+    providers: [GrupoService,SemestreService,CursoService,CarreraService,AuthGuard,AuthenticationService,UserService,PrpropiosService,MaestroService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

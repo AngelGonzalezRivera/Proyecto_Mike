@@ -53,6 +53,11 @@ export class CursoComponent implements OnInit {
     refreshDT(){
         this.CS.getCursos().subscribe(data1 => {
             data1.forEach(function(element) {
+                let date:String;
+                date=element.inicio;
+                element.inicio=date.substr(0,10);
+                date=element.fin;
+                element.fin=date.substr(0,10);
                 if(element.status=='A'){element.status=true}else element.status=false;               
                 });
                  this.cursos=data1;
@@ -63,8 +68,14 @@ export class CursoComponent implements OnInit {
         if(accion=='editar'){
         console.log(id$);
               this.CS.getCurso(id$).subscribe(cursos => {
-                console.log(cursos);
+                let date:String;
+                date=cursos[0].inicio;
+                cursos[0].inicio=date.substr(0,10);
+                date=cursos[0].fin;
+                cursos[0].fin=date.substr(0,10);
+                console.log(cursos[0]);
                 //console.log(cursos.User[0].inicio);
+                this.cursosForm.controls['descripcion'].setValue(cursos[0].descripcion);
                 this.cursosForm.controls['inicio'].setValue(cursos[0].inicio);
                 this.cursosForm.controls['fin'].setValue(cursos[0].fin);
               });}
@@ -98,12 +109,14 @@ export class CursoComponent implements OnInit {
 
     ngOnInit() {
         this.cursosForm= this.pf.group({
+          descripcion: ['', Validators.required],
             inicio: ['', Validators.required],
             fin: ['', Validators.required ],
           });  
     }
     savecurso() {
       const savecurso = {
+        descripcion: this.cursosForm.get('descripcion').value,
         inicio: this.cursosForm.get('inicio').value,
         fin: this.cursosForm.get('fin').value,
       };
