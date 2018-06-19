@@ -1,51 +1,52 @@
-<app-page-header [heading]="'Carrera'" [icon]="'fa fa-fw fa-edit'"></app-page-header>
-<div class="pull-right">
-    <button class="btn btn-primary" routerLink="/carrera" (click)="open('registrar',0,content)"><b>+</b> Registrar Carreras </button>                                    
-</div>
-<br>
-<br>
-<div class="container-fluid">
-    <div class="row">
-            <div class="col col-xl-12 col-lg-12">
-                    <div class="card mb-3">
-                    <div class="card-block table-responsive">
-                        <br><br>
-                        <!-- <div *ngIf="cargando" class="text-center" style="padding-top: 60px;">
-                                <img src="../../../assets/spinner.gif">
-                        </div> -->
-                        <div style="text-align:center;">
-                            Busqueda: <input type="text" pInputText placeholder="Filtro de Busqueda..." #gb pInputText >
-                            <a  class="search-icon">
-                                <i class="fa fa-search" id="myimage"></i>
-                            </a>
-</div>
-<br>
-                        <!--<div *ngIf="resultados">  -->
-                            <p-dataTable  [tableStyle]="{'table-layout':'auto'}"  [value]="carreras" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [pageLinks]="3" [responsive]="true" [style]="{'width': '900'}" [globalFilter]="gb" #dt>
-                               <!-- <p-column [style]="{'width':'50px'}" field="idUsuario" header="ID" ></p-column>-->
-                            <p-column  [style]="{'width':'30%'}" field="nombre" header="Nombre"></p-column>
-                            <p-column  [style]="{'width':'100'}"  header="Estatus">        
-                            <ng-template let-i="rowIndex" pTemplate="body">
-                                    <p-toggleButton onLabel="Activo" offLabel="Inactivo" [(ngModel)]="carreras[i].status" (click)="change(carreras[i].id,carreras[i].status)"> </p-toggleButton> 
-                            </ng-template>-->
-                           </p-column>                             
-                           <p-column header="Acciones" [style]="{'width':'80'}" >        
-                                <ng-template let-h="rowIndex" pTemplate="body">
-                                    <button (click)="open('editar',carreras[h].id,content3)" type="button" class="btn btn-success" >
-                                    Editar
-                                    </button>
-                                    <!-- <button (click)="open('eliminar',cars[h].idUsuario,content2)" type="button" class="btn btn-danger">
-                                      Eliminar
-                                      </button> -->
-                                </ng-template>
-                           </p-column> 
-                          </p-dataTable>
+<div class="container">
+        <app-page-header [heading]="'Carrera'" [icon]="'fa fa-fw fa-edit'"></app-page-header>
+        <div class="pull-right">
+            <button class="btn btn-primary" routerLink="/carrera" (click)="open('registrar',0,content)"><b>+</b> Registrar Carreras </button>                                    
+        </div>
+        <br>
+        <br>
+        <div class="container-fluid">
+            <div class="row">
+                    <div class="col col-xl-12 col-lg-12">
+                            <div class="card mb-3">
+                            <div class="card-block table-responsive">
+                                <br><br>
+                                <!-- <div *ngIf="cargando" class="text-center" style="padding-top: 60px;">
+                                        <img src="../../../assets/spinner.gif">
+                                </div> -->
+                                <div style="text-align:center;">
+                                    Busqueda: <input type="text" pInputText placeholder="Filtro de Busqueda..." #gb pInputText >
+                                    <a  class="search-icon">
+                                        <i class="fa fa-search" id="myimage"></i>
+                                    </a>
+        </div>
+        <br>
+                                <!--<div *ngIf="resultados">  -->
+                                    <p-dataTable  [tableStyle]="{'table-layout':'auto'}"  [value]="carreras" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [pageLinks]="3" [responsive]="true" [style]="{'width': '900'}" [globalFilter]="gb" #dt>
+                                    <!-- <p-column [style]="{'width':'50px'}" field="idUsuario" header="ID" ></p-column>-->
+                                    <p-column  [style]="{'width':'30%'}" field="nombre" header="Nombre"></p-column>
+                                    <p-column  [style]="{'width':'100'}"  header="Estatus">        
+                                    <ng-template let-i="rowIndex" pTemplate="body">
+                                            <p-toggleButton onLabel="Activo" offLabel="Inactivo" [(ngModel)]="carreras[i].status" (click)="change(carreras[i].id,carreras[i].status)"> </p-toggleButton> 
+                                    </ng-template>-->
+                                </p-column>                             
+                                <p-column header="Acciones" [style]="{'width':'80'}" >        
+                                        <ng-template let-h="rowIndex" pTemplate="body">
+                                            <button (click)="open('editar',carreras[h].id,content3)" type="button" class="btn btn-success" >
+                                            Editar
+                                            </button>
+                                            <!-- <button (click)="open('eliminar',cars[h].idUsuario,content2)" type="button" class="btn btn-danger">
+                                            Eliminar
+                                            </button> -->
+                                        </ng-template>
+                                </p-column> 
+                                </p-dataTable>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 </div>
-
 
 <template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
