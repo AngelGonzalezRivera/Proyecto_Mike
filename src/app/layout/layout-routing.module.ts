@@ -17,7 +17,8 @@ const routes: Routes = [
             { path: 'carrera', loadChildren: './carrera/carrera.module#CarreraModule' },
             { path: 'curso', loadChildren: './curso/curso.module#CursoModule' },
             { path: 'semestre', loadChildren: './semestre/semestre.module#SemestreModule' },
-            { path: 'grupo', loadChildren: './grupo/grupo.module#GrupoModule' }
+            { path: 'grupo', loadChildren: './grupo/grupo.module#GrupoModule' },
+            { path: 'jefe', loadChildren: './jefedegrupo/jefe.module#JefeModule' }
         ]
     }
 ];

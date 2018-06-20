@@ -14,6 +14,7 @@ import{ SemestreService} from './shared/services/semestre.service';
 import{ UserService} from './shared/services/user.service';
 import{ MaestroService} from './shared/services/Maestro.service';
 import{ GrupoService} from './shared/services/grupo.service';
+import{ JefeService} from './shared/services/jefe.service';
 
 import{ PrpropiosService} from './shared/services/prpropios.service';
 export function HttpLoaderFactory(http: Http) {
@@ -37,7 +38,7 @@ export function HttpLoaderFactory(http: Http) {
             }
         })
     ],
-    providers: [GrupoService,SemestreService,CursoService,CarreraService,AuthGuard,AuthenticationService,UserService,PrpropiosService,MaestroService],
+    providers: [JefeService,GrupoService,SemestreService,CursoService,CarreraService,AuthGuard,AuthenticationService,UserService,PrpropiosService,MaestroService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

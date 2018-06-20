@@ -1,0 +1,199 @@
+<div class="container">
+    <app-page-header [heading]="'Jefe de Grupo'" [icon]="'fa fa-fw fa-edit'"></app-page-header>
+    <div class="pull-right">
+        <button class="btn btn-primary" routerLink="/jefe" (click)="open('registrar',0,content)"><b>+</b> Registrar jefe </button>                                    
+    </div>
+    <br>
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+                <div class="col col-xl-12 col-lg-12">
+                        <div class="card mb-3">
+                        <div class="card-block table-responsive">
+                            <br><br>
+                            <!-- <div *ngIf="cargando" class="text-center" style="padding-top: 60px;">
+                                    <img src="../../../assets/spinner.gif">
+                            </div> -->
+                            <div style="text-align:center;">
+                                Busqueda: <input type="text" pInputText placeholder="Filtro de Busqueda..." #gb pInputText >
+                                <a  class="search-icon">
+                                    <i class="fa fa-search" id="myimage"></i>
+                                </a>
+    </div>
+    <br>
+                            <!--<div *ngIf="resultados">  -->
+                                <p-dataTable  [tableStyle]="{'table-layout':'auto'}"  [value]="jefes" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [pageLinks]="3" [responsive]="true" [style]="{'width': '900'}" [globalFilter]="gb" #dt>
+                                <!-- <p-column [style]="{'width':'50px'}" field="idUsuario" header="ID" ></p-column>-->
+                                <p-column  [style]="{'width':'30%'}" field="nombre" header="Nombre"></p-column>
+                                <p-column  [style]="{'width':'30%'}" field="apellido" header="Apellido"></p-column>
+                                <p-column  [style]="{'width':'20%'}" field="id_grupo" header="Grupo"></p-column>
+                                <!--<p-column  [style]="{'width':'100'}"  header="Estatus">        
+                                <ng-template let-i="rowIndex" pTemplate="body">
+                                        <p-toggleButton onLabel="Activo" offLabel="Inactivo" [(ngModel)]="jefes[i].status" (click)="change(jefes[i].id,jefes[i].status)"> </p-toggleButton> 
+                                </ng-template>
+                            </p-column>  -->                           
+                            <p-column header="Acciones" [style]="{'width':'80'}" >        
+                                    <ng-template let-h="rowIndex" pTemplate="body">
+                                        <button (click)="open('editar',jefes[h],content3)" type="button" class="btn btn-success" >
+                                        Editar
+                                        </button>
+                                        <button (click)="open('eliminar',cars[h].idUsuario,content2)" type="button" class="btn btn-danger">
+                                        Eliminar
+                                        </button> 
+                                
+                                    </ng-template>
+                            </p-column> 
+                            </p-dataTable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+        <h4 class="modal-title">Registro de jefe</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('cerrar')">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+                <div class="row">
+                        <div class="col-md-12">
+                            <form [formGroup]="jefesForm" (ngSubmit)="onSubmit()" >
+                                <div class="form-group">
+                                        <i class="fa fa-check-circle check" *ngIf="jefesForm.controls.Nombre.valid"></i>
+                                        <i class="fa fa-exclamation-circle uncheck" *ngIf="jefesForm.controls.Nombre.invalid && jefesForm.controls.Nombre.touched"></i>                            
+                                    <label for="nombre">Nombre(s)</label>         
+                                    <input type="text" class="form-control" formControlName="Nombre" id="nombre"  required>
+                                    <p class="alert alert-danger" *ngIf="jefesForm.controls.Nombre.invalid && jefesForm.controls.Nombre.touched">El campo "Nombre" es obligatorio.</p>                                                
+                                    </div>
+                                    <div class="form-group">
+                                        <i class="fa fa-check-circle check" *ngIf="jefesForm.controls.id_grupo.valid"></i>
+                                        <i class="fa fa-exclamation-circle uncheck" *ngIf="jefesForm.controls.id_grupo.invalid && jefesForm.controls.id_grupo.touched"></i>                                
+                                    <label for="id_grupo">Grupo</label>      
+                                    <select class="form-control" id="id_grupo" formControlName="id_grupo">
+                                                    <option value="seleccione" disabled="disabled" selected="selected" hidden="hidden">Seleccione</option>
+                                                    <option *ngFor="let item of grupos;" [value]="item.grupo"> {{item.grupo}}</option>
+                                    </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <i class="fa fa-check-circle check" *ngIf="jefesForm.controls.Apellido.valid"></i>
+                                        <i class="fa fa-exclamation-circle uncheck" *ngIf="jefesForm.controls.Apellido.invalid && jefesForm.controls.Apellido.touched"></i>                            
+                                    <label for="app">Apellido(s)</label>
+                                    <input type="text" class="form-control" formControlName="Apellido" id="app" required>
+                                    <p class="alert alert-danger" *ngIf="jefesForm.controls.Apellido.invalid && jefesForm.controls.Apellido.touched">El campo "Apellido" es obligatorio.</p>                                                
+                                    </div>
+                                    <div class="form-group">
+                                            <i class="fa fa-check-circle check" *ngIf="jefesForm.controls.Telefono.valid"></i>
+                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="jefesForm.controls.Telefono.invalid && jefesForm.controls.Telefono.touched"></i>                                
+                                    <label for="Telefono">Telefono</label>
+                                    <input type="number" class="form-control" formControlName="Telefono" id="Telefono" placeholder="Ej. 6688010203">
+                                    <p class="alert alert-danger" *ngIf="jefesForm.controls.Telefono.invalid && jefesForm.controls.Telefono.touched">El campo "Telefono" es obligatorio.</p>                                                
+                                    </div>  
+                                    <div class="form-group">
+                                            <i class="fa fa-check-circle check" *ngIf="jefesForm.controls.Correo.valid"></i>
+                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="jefesForm.controls.Correo.invalid && jefesForm.controls.Correo.touched"></i>                                
+                                            <label for="Correo">Correo Electronico</label>
+                                            <input type="text" class="form-control" id="Correo" formControlName="Correo" placeholder="Ej. Correo@ejemplo.com">
+                                            <p class="alert alert-danger" *ngIf="jefesForm.controls.Correo.invalid && jefesForm.controls.Correo.touched">El campo "Correo Electronico" no es Valido.</p>                                                
+                                    </div>  
+                                    <div class="form-group">
+                                            <i class="fa fa-check-circle check" *ngIf="(jefesForm.controls.Contra.valid)&&(!(jefesForm.get(['Contra']).value != jefesForm.get(['Contra2']).value && jefesForm.get(['Contra2']).value != null))"></i>
+                                            <i class="fa fa-exclamation-circle uncheck" *ngIf="(jefesForm.controls.Contra.invalid && jefesForm.controls.Contra.touched) || (jefesForm.get(['Contra']).value != jefesForm.get(['Contra2']).value && jefesForm.get(['Contra2']).value != null)"></i>                                
+                                            <label for="contra1">Contraseña</label>
+                                            <input type="password" class="form-control" id="contra1" formControlName="Contra" placeholder="minimo 6 caracteres">
+                                            <p class="alert alert-danger" *ngIf="jefesForm.controls.Contra.invalid && jefesForm.controls.Contra.touched">Minimo 6 Caracteres Requeridos.</p>                                                
+                                        </div>  
+                                    <div class="form-group">
+                                        <i class="fa fa-check-circle check" *ngIf="(jefesForm.controls.Contra2.valid)&&(!(jefesForm.get(['Contra']).value != jefesForm.get(['Contra2']).value && jefesForm.get(['Contra2']).value != null))"></i>
+                                        <i class="fa fa-exclamation-circle uncheck" *ngIf="(jefesForm.controls.Contra2.invalid && jefesForm.controls.Contra2.touched) || (jefesForm.get(['Contra']).value != jefesForm.get(['Contra2']).value && jefesForm.get(['Contra2']).value != null)"></i>                                
+                                        <label for="contra2">Confirma Contraseña</label>
+                                            <input type="password" class="form-control" id="contra2" formControlName="Contra2" placeholder="minimo 6 caracteres">
+                                            <p class="alert alert-danger" *ngIf="jefesForm.controls.Contra2.invalid && jefesForm.controls.Contra2.touched">Minimo 6 Caracteres Requeridos.</p>                                                
+                                        </div> 
+                                        <p class="alert alert-danger" *ngIf="jefesForm.get(['Contra']).value != jefesForm.get(['Contra2']).value && jefesForm.get(['Contra2']).value != null">
+                                        Contraseñas no Coinciden</p>
+                                    <br>
+                                    <br>
+                                    <p class="alert alert-danger" *ngIf="!jefesForm.valid">Por favor complete todos los campos</p>
+                                    <div class="modal-footer">
+        
+                                            <button type="button" class="btn btn-success" [disabled]="!jefesForm.valid" (click)="c('Aceptar')" >Registrar jefe</button>
+                                            <a class="btn btn-danger" routerLink="/jefe" (click)="c('Cancelar')">Cancelar</a>
+        
+                                        </div>           
+                            </form>
+                        </div>
+                    </div>
+        </div>
+        </template>
+
+
+        <!-- <template #content2 let-c="close" let-d="dismiss">
+            <div class="modal-header">
+            <h4 class="modal-title">Advertencia</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('cerrar')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <p>¿Realmente desea dar de baja este Usuario?&hellip;</p>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="c('Cancelar')">Cancelar</button>
+            <button type="button" class="btn btn-secondary" (click)="c('Aceptar')">Aceptar</button>          
+            </div>
+        </template>    -->
+        
+        
+        
+        <template #content3 let-c="close" let-d="dismiss">
+            <div class="modal-header">
+            <h4 class="modal-title">Edición de jefes</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('cerrar')">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                    <div class="row">
+                            <div class="col-md-12">
+                                <form [formGroup]="jefeForm" (ngSubmit)="onSubmit()" >
+                                    <div class="form-group">
+                                        <i class="fa fa-check-circle check" *ngIf="jefeForm.controls.nombre.valid"></i>
+                                        <i class="fa fa-exclamation-circle uncheck" *ngIf="jefeForm.controls.nombre.invalid && jefeForm.controls.nombre.touched"></i>                            
+                                    <label for="nombre">nombre(s)</label>         
+                                    <input type="text" class="form-control" formControlName="nombre" id="nombre"  required>
+                                    <p class="alert alert-danger" *ngIf="jefeForm.controls.nombre.invalid && jefeForm.controls.nombre.touched">El campo "nombre" es obligatorio.</p>                                                
+                                    </div>
+                                    <div class="form-group">
+                                        <i class="fa fa-check-circle check" *ngIf="jefeForm.controls.apellido.valid"></i>
+                                        <i class="fa fa-exclamation-circle uncheck" *ngIf="jefeForm.controls.apellido.invalid && jefeForm.controls.apellido.touched"></i>                            
+                                    <label for="app">Descripción(s)</label>
+                                    <input type="text" class="form-control" formControlName="apellido" id="app" required>
+                                    <p class="alert alert-danger" *ngIf="jefeForm.controls.apellido.invalid && jefeForm.controls.apellido.touched">El campo "apellido" es obligatorio.</p>                                                
+                                    </div>
+                                    <div class="form-group">
+                                        <i class="fa fa-check-circle check" *ngIf="jefeForm.controls.id_user.valid"></i>
+                                        <i class="fa fa-exclamation-circle uncheck" *ngIf="jefeForm.controls.id_user.invalid && jefeForm.controls.id_user.touched"></i>                                
+                                    <label for="id_usuario">Usuario</label>      
+                                    <select class="form-control" id="id_usuario" formControlName="id_user">
+                                                    <option value="seleccione" disabled="disabled" selected="selected" hidden="hidden">Seleccione</option>
+                                                    <option *ngFor="let item of usuarios;" [value]="item.idUsuario"> {{item.Nombre}}</option>
+                                    </select>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <p class="alert alert-danger" *ngIf="!jefeForm.valid">Por favor complete todos los campos</p>
+                                    <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" [disabled]="!jefeForm.valid" (click)="c('Aceptar')" >Guardar cambios</button>
+                                            <a class="btn btn-danger" routerLink="/jefe" (click)="c('Cancelar')">Cancelar</a>
+                                    </div>           
+                                    
+                            </form>
+                            </div>
+                        </div>
+            </div>
+    </template>
+</div>
