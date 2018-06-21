@@ -68,6 +68,13 @@
                                     <label for="nombre">Nombre(s)</label>         
                                     <input type="text" class="form-control" formControlName="Nombre" id="nombre"  required>
                                     <p class="alert alert-danger" *ngIf="jefesForm.controls.Nombre.invalid && jefesForm.controls.Nombre.touched">El campo "Nombre" es obligatorio.</p>                                                
+                                    </div>  
+                                    <div class="form-group">
+                                        <i class="fa fa-check-circle check" *ngIf="jefesForm.controls.Apellido.valid"></i>
+                                        <i class="fa fa-exclamation-circle uncheck" *ngIf="jefesForm.controls.Apellido.invalid && jefesForm.controls.Apellido.touched"></i>                            
+                                    <label for="app">Apellido(s)</label>
+                                    <input type="text" class="form-control" formControlName="Apellido" id="app" required>
+                                    <p class="alert alert-danger" *ngIf="jefesForm.controls.Apellido.invalid && jefesForm.controls.Apellido.touched">El campo "Apellido" es obligatorio.</p>                                                
                                     </div>
                                     <div class="form-group">
                                         <i class="fa fa-check-circle check" *ngIf="jefesForm.controls.id_grupo.valid"></i>
@@ -77,13 +84,6 @@
                                                     <option value="seleccione" disabled="disabled" selected="selected" hidden="hidden">Seleccione</option>
                                                     <option *ngFor="let item of grupos;" [value]="item.grupo"> {{item.grupo}}</option>
                                     </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <i class="fa fa-check-circle check" *ngIf="jefesForm.controls.Apellido.valid"></i>
-                                        <i class="fa fa-exclamation-circle uncheck" *ngIf="jefesForm.controls.Apellido.invalid && jefesForm.controls.Apellido.touched"></i>                            
-                                    <label for="app">Apellido(s)</label>
-                                    <input type="text" class="form-control" formControlName="Apellido" id="app" required>
-                                    <p class="alert alert-danger" *ngIf="jefesForm.controls.Apellido.invalid && jefesForm.controls.Apellido.touched">El campo "Apellido" es obligatorio.</p>                                                
                                     </div>
                                     <div class="form-group">
                                             <i class="fa fa-check-circle check" *ngIf="jefesForm.controls.Telefono.valid"></i>

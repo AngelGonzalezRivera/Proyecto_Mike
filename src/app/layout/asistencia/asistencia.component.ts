@@ -3,6 +3,7 @@ import { MaestroService } from '../../shared/services/Maestro.service';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import {AuthenticationService} from '../../shared/services/authentication.service'
 import { UserService } from '../../shared/services/user.service';
 @Component({
     selector: 'app-asistencia',
@@ -36,9 +37,10 @@ export class AsistenciaComponent implements OnInit {
     usuarioForm: FormGroup;
     usuario: any;
     usuarios: any;
-    constructor(public usuarioService:UserService,public MS:MaestroService, private pf: FormBuilder,private modalService: NgbModal,private router:Router) { 
+    us:any;
+    constructor(public AS:AuthenticationService,public usuarioService:UserService,public MS:MaestroService, private pf: FormBuilder,private modalService: NgbModal,private router:Router) { 
         this.refreshDT();
-        
+        this.us=this.AS.getUser();
   }
     change(id$,status){
         var stat;

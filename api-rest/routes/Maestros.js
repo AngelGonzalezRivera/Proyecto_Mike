@@ -34,13 +34,14 @@ if(err)
 });
 router.post('/',function(req,res,next){
 
-Maestro.addmaestro(req.body,function(err,count){
+Maestro.addmaestro(req.body,function(err,count,result){
  if(err)
  {
  res.json(err);
  }
  else{
- res.json(req.body);//or return count for 1 &amp;amp;amp; 0
+    result.status=201;
+    res.json(result);//or return count for 1 &amp;amp;amp; 0
  }
  });
 });

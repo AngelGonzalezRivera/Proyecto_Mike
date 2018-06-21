@@ -11,6 +11,10 @@ getmaestroById:function(id,callback){
 id='%'+id+'%';
 return  db.get().query("select * from maestro where id LIKE ?",[id],callback);
 },
+getmaestroByIdGrupo:function(id,callback){
+    id='%'+id+'%';
+    return  db.get().query("select * from maestro where id LIKE ?",[id],callback);
+    },
 addmaestro:function(maestro,callback){
 return  db.get().query("Insert into maestro values(?,?,?,?,?)",[null,maestro.nombre,maestro.apellido,'A',maestro.id_user],callback);
 },

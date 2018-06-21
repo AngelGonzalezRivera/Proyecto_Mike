@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
+import { GrupoService } from 'app/shared/services/grupo.service';
+import { MateriaService } from '../../shared/services/materia.service';
 
 @Component({
     selector: 'app-maestro',
@@ -11,11 +13,14 @@ import { UserService } from '../../shared/services/user.service';
     styleUrls: ['./maestro.component.scss']
 })
 export class MaestroComponent implements OnInit {
+  materias:any;
+  grupos:any;
     agregarmaestros(id$){
       this.maestro=this.savemaestro(id$);
       this.MS.postMaestro(this.maestro).subscribe(newpres => {
         console.log(newpres);
-        if(newpres.status==200){
+        if(newpres.status==201){
+          console.log(newpres);
           //alert("Registro Realizado Correctamente");
         }else{
           alert("El Registro No se pudo Realizar, vuelva a intentarlo");
@@ -35,8 +40,9 @@ export class MaestroComponent implements OnInit {
     usuarioForm: FormGroup;
     usuario: any;
     usuarios: any;
-    constructor(public usuarioService:UserService,public MS:MaestroService, private pf: FormBuilder,private modalService: NgbModal,private router:Router) { 
+    constructor(public GS:GrupoService,public MateriaS:MateriaService,public usuarioService:UserService,public MS:MaestroService, private pf: FormBuilder,private modalService: NgbModal,private router:Router) { 
         this.refreshDT();
+
         
   }
     change(id$,status){
@@ -54,6 +60,18 @@ export class MaestroComponent implements OnInit {
     
       }
     refreshDT(){
+      this.GS.getGrupos().subscribe(data1 => {
+        data1.forEach(function(element) {
+            if(element.status=='A'){element.status=true}else element.status=false;               
+            });
+             this.grupos=data1;
+        }); 
+        this.MateriaS.getMaterias().subscribe(data1 => {
+          data1.forEach(function(element) {
+              if(element.status=='A'){element.status=true}else element.status=false;               
+              });
+               this.materias=data1;
+          }); 
         this.MS.getMaestros().subscribe(data1 => {
             data1.forEach(function(element) {
                 if(element.status=='A'){element.status=true}else element.status=false;               
@@ -143,6 +161,8 @@ export class MaestroComponent implements OnInit {
             Correo: ['', Validators.email],
             Contra: ['', [Validators.required, Validators.minLength(6)] ],
             Contra2: ['', [Validators.required, Validators.minLength(6)] ],
+            id_grupo: ['', []],
+            id_materia: ['', []],
           },{validator: this.passwordConfirming});  
         //console.log(this.busqueda);   
         this.usuarioService.getUsers().subscribe(usuarios => {
@@ -190,6 +210,16 @@ saveUsuario() {
   };
   return saveUsuario;
 }
+saveMMG() {
+  const saveMMG = {
+    id_materia: this.maestrosForm.get('id_materia').value,
+    id_grupo: this.maestrosForm.get('id_grupo').value,
+    Telefono: this.maestrosForm.get('Telefono').value,
+    
+  };
+  return saveMMG;
+}
+
 editarmaestros(id$) {
   this.maestro = this.savemaestro2(id$);
   console.log(this.maestro);

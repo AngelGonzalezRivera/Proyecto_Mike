@@ -75,6 +75,25 @@
                                     <p class="alert alert-danger" *ngIf="maestrosForm.controls.Apellido.invalid && maestrosForm.controls.Apellido.touched">El campo "Apellido" es obligatorio.</p>                                                
                                     </div>
                                     <div class="form-group">
+                                        <i class="fa fa-check-circle check" *ngIf="maestrosForm.controls.id_grupo.valid"></i>
+                                        <i class="fa fa-exclamation-circle uncheck" *ngIf="maestrosForm.controls.id_grupo.invalid && maestrosForm.controls.id_grupo.touched"></i>                                
+                                    <label for="id_grupo">Grupo</label>      
+                                    <select class="form-control" id="id_grupo" formControlName="id_grupo">
+                                                    <option value="seleccione" disabled="disabled" selected="selected" hidden="hidden">Seleccione</option>
+                                                    <option *ngFor="let item of grupos;" [value]="item.grupo"> {{item.grupo}}</option>
+                                    </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <i class="fa fa-check-circle check" *ngIf="maestrosForm.controls.id_materia.valid"></i>
+                                        <i class="fa fa-exclamation-circle uncheck" *ngIf="maestrosForm.controls.id_materia.invalid && maestrosForm.controls.id_materia.touched"></i>                                
+                                    <label for="id_materia">Materia</label>      
+                                    <select class="form-control" id="id_materia" formControlName="id_materia">
+                                                    <option value="seleccione" disabled="disabled" selected="selected" hidden="hidden">Seleccione</option>
+                                                    <option *ngFor="let item of materias;" [value]="item.materia"> {{item.materia}}</option>
+                                    </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
                                             <i class="fa fa-check-circle check" *ngIf="maestrosForm.controls.Telefono.valid"></i>
                                             <i class="fa fa-exclamation-circle uncheck" *ngIf="maestrosForm.controls.Telefono.invalid && maestrosForm.controls.Telefono.touched"></i>                                
                                     <label for="Telefono">Telefono</label>
