@@ -14,6 +14,7 @@ var Semestre = require('./routes/semestre');
 var Grupo = require('./routes/grupo');
 var JefeGrupo = require('./routes/jefe_de_grupo');
 var MMG = require('./routes/maestro_materia_grupo');
+var Asistencia = require('./routes/asistencia');
 var nodemailer = require('nodemailer');
 var async = require('async');
 var crypto = require('crypto');
@@ -52,6 +53,7 @@ app.use('/Semestre', Semestre);
 app.use('/Grupo', Grupo);
 app.use('/Jefes', JefeGrupo);
 app.use('/MMG', MMG);
+app.use('/Asistencia', Asistencia);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

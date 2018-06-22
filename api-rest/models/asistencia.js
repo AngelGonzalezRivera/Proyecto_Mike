@@ -12,7 +12,7 @@ id='%'+id+'%';
 return  db.get().query("select * from asistencia where id LIKE ?",[id],callback);
 },
 addasistencia:function(asistencia,callback){
-return  db.get().query("Insert into asistencia values(?,?,?,?)",[null,asistencia.id_maestro,asistencia.fecha,asistencia.asistio],callback);
+return  db.get().query("Insert into asistencia values(?,?,?,?)",[null,asistencia.id_maestro,asistencia.fecha,'A'],callback);
 },
 deleteasistencia:function(id,callback){
  return  db.get().query("delete from asistencia where id=?",[id],callback);

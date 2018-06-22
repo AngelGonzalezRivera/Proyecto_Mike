@@ -2,7 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import {DataTableModule} from '../../../../node_modules/primeng/components/datatable/datatable';
+import {InputTextModule} from '../../../../node_modules/primeng/components/inputtext/inputtext';
+import {ToggleButtonModule} from '../../../../node_modules/primeng/components/togglebutton/togglebutton';
+import {RadioButtonModule} from '../../../../node_modules/primeng/components/radiobutton/radiobutton';
 // relative import
 import { ReportesRoutingModule } from './reportes-routing.module';
 import { ReportesComponent } from './reportes.component';
@@ -29,6 +32,10 @@ import { PageHeaderModule } from '../../shared';
         ReactiveFormsModule,
         NgbModule.forRoot(),
         PageHeaderModule,
+        InputTextModule,
+        DataTableModule,
+        ToggleButtonModule,
+        RadioButtonModule,
         ReportesRoutingModule,
     ],
     declarations: [

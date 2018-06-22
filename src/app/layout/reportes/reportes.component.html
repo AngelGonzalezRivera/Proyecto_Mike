@@ -1,3 +1,50 @@
 <div class="container">
         <app-page-header [heading]="'Reportes'" [icon]="'fa fa-line-chart'"></app-page-header>
-</div>
+                <!-- <div class="pull-right">
+                    <button class="btn btn-primary" routerLink="/reportes" (click)="open('registrar',0,content)"><b>+</b> Registrar reportess </button>                                    
+                </div>
+                <br>
+                <br> -->
+                <div class="container-fluid">
+                    <div class="row">
+                            <div class="col col-xl-12 col-lg-12">
+                                    <div class="card mb-3">
+                                    <div class="card-block table-responsive">
+                                        <br><br>
+                                        <!-- <div *ngIf="cargando" class="text-center" style="padding-top: 60px;">
+                                                <img src="../../../assets/spinner.gif">
+                                        </div> -->
+                                        <div style="text-align:center;">
+                                            Busqueda: <input type="text" pInputText placeholder="Filtro de Busqueda..." #gb pInputText >
+                                            <a  class="search-icon">
+                                                <i class="fa fa-search" id="myimage"></i>
+                                            </a>
+                </div>
+                <br>
+                                        <!--<div *ngIf="resultados">  -->
+                                            <p-dataTable  [tableStyle]="{'table-layout':'auto'}"  [value]="asistencia" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [pageLinks]="3" [responsive]="true" [style]="{'width': '900'}" [globalFilter]="gb" #dt>
+                                            <!-- <p-column [style]="{'width':'50px'}" field="idUsuario" header="ID" ></p-column>-->
+                                            <p-column  [style]="{'width':'30%'}" field="id_maestro" header="ID"></p-column>
+                                            <p-column  [style]="{'width':'30%'}" field="fecha" header="Fecha"></p-column>
+                                            <!-- <p-column  [style]="{'width':'100'}"  header="Estatus">        
+                                            <ng-template let-i="rowIndex" pTemplate="body">
+                                                    <p-toggleButton onLabel="Activo" offLabel="Inactivo" [(ngModel)]="reportess[i].status" (click)="change(reportess[i].id,reportess[i].status)"> </p-toggleButton> 
+                                            </ng-template>
+                                        </p-column>                              -->
+                                        <!-- <p-column header="Acciones" [style]="{'width':'80'}" >        
+                                                <ng-template let-h="rowIndex" pTemplate="body">
+                                                    <button (click)="open('editar',reportess[h].id,content3)" type="button" class="btn btn-success" >
+                                                    Editar
+                                                    </button>
+                                                    <button (click)="open('eliminar',cars[h].idUsuario,content2)" type="button" class="btn btn-danger">
+                                                    Eliminar
+                                                    </button> 
+                                                </ng-template>
+                                        </p-column>  -->
+                                        </p-dataTable>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>

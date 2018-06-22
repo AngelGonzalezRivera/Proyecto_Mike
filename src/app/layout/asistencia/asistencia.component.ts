@@ -5,6 +5,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import {AuthenticationService} from '../../shared/services/authentication.service'
 import { UserService } from '../../shared/services/user.service';
+import { AsistenciaService } from '../../shared/services/Asistencia.service';
 @Component({
     selector: 'app-asistencia',
     templateUrl: './asistencia.component.html',
@@ -38,10 +39,12 @@ export class AsistenciaComponent implements OnInit {
     usuario: any;
     usuarios: any;
     us:any;
-    constructor(public AS:AuthenticationService,public usuarioService:UserService,public MS:MaestroService, private pf: FormBuilder,private modalService: NgbModal,private router:Router) { 
+    fecha:any;
+    constructor(public AS:AuthenticationService,public usuarioService:UserService,public AsS:AsistenciaService,public MS:MaestroService, private pf: FormBuilder,private modalService: NgbModal,private router:Router) { 
         this.refreshDT();
         this.us=this.AS.getUser();
   }
+
     change(id$,status){
         var stat;
         console.log(id$,status);
@@ -99,7 +102,6 @@ export class AsistenciaComponent implements OnInit {
                 //console.log(maestros.User[0].nombre);
                 this.maestroForm.controls['nombre'].setValue(maestros[0].nombre);
                 this.maestroForm.controls['apellido'].setValue(maestros[0].apellido);
-                this.maestroForm.controls['id_user'].setValue(maestros[0].id_user);
               });
             }
         //console.log(accion,id$);
@@ -159,8 +161,7 @@ export class AsistenciaComponent implements OnInit {
                   this.maestroForm = this.pf.group({
                     nombre: ['', Validators.required],
                     apellido: ['', Validators.required ],
-                    id_user: ['', Validators.required],
-                   
+                    fecha:['', Validators.required ],
                   }); 
     }
     savemaestro(id$) {
@@ -174,9 +175,10 @@ export class AsistenciaComponent implements OnInit {
 }
 savemaestro2(id$) {
   const savemaestro = {
+    id_maestro:id$,
     nombre: this.maestroForm.get('nombre').value,
     apellido: this.maestroForm.get('apellido').value,
-    id_user: id$,
+    fecha: this.maestroForm.get('fecha').value,
     //id_user: this.maestrosForm.get('id_user').value,
   };
   return savemaestro;
@@ -196,8 +198,9 @@ saveUsuario() {
 editarmaestros(id$) {
   this.maestro = this.savemaestro2(id$);
   console.log(this.maestro);
-  this.MS.putMaestro(id$,this.maestro).subscribe(newpre => { 
+  this.AsS.postAsistencia(this.maestro).subscribe(newpre => { 
   this.refreshDT();
+  alert('asistencia registrada');
   this.maestro=[];
 
 //this.router.navigate(['/clientes'])

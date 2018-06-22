@@ -1,8 +1,8 @@
 <div class="container">
     <app-page-header [heading]="'Asistencia'" [icon]="'fa fa-fw fa-edit'"></app-page-header>
-    <div class="pull-right">
+    <!-- <div class="pull-right">
         <button class="btn btn-primary" routerLink="/maestro" (click)="open('registrar',0,content)"><b>+</b> Registrar Maestro </button>                                    
-    </div>
+    </div> -->
     <br>
     <br>
     <div class="container-fluid">
@@ -24,17 +24,17 @@
                             <!--<div *ngIf="resultados">  -->
                                 <p-dataTable  [tableStyle]="{'table-layout':'auto'}"  [value]="maestros" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [pageLinks]="3" [responsive]="true" [style]="{'width': '900'}" [globalFilter]="gb" #dt>
                                 <!-- <p-column [style]="{'width':'50px'}" field="idUsuario" header="ID" ></p-column>-->
-                                <p-column  [style]="{'width':'30%'}" field="nombre" header="Nombre"></p-column>
-                                <p-column  [style]="{'width':'30%'}" field="apellido" header="Apellido"></p-column>
-                                <p-column  [style]="{'width':'100'}"  header="Estatus">        
+                                <p-column  [style]="{'width':'40%'}" field="nombre" header="Nombre"></p-column>
+                                <p-column  [style]="{'width':'40%'}" field="apellido" header="Apellido"></p-column>
+                                <!-- <p-column  [style]="{'width':'100'}"  header="Estatus">        
                                 <ng-template let-i="rowIndex" pTemplate="body">
                                         <p-toggleButton onLabel="Activo" offLabel="Inactivo" [(ngModel)]="maestros[i].status" (click)="change(maestros[i].id,maestros[i].status)"> </p-toggleButton> 
-                                </ng-template>-->
-                            </p-column>                             
+                                </ng-template>
+                            </p-column>                              -->
                             <p-column header="Acciones" [style]="{'width':'80'}" >        
                                     <ng-template let-h="rowIndex" pTemplate="body">
-                                        <button (click)="open('editar',maestros[h],content3)" type="button" class="btn btn-success" >
-                                        Editar
+                                        <button type="button" class="btn btn-success" routerLink="/asistencia" (click)="open('editar',maestros[h],content3)">
+                                            <span class="fa fa-check" aria-hidden="true"></span>
                                         </button>
                                         <!-- <button (click)="open('eliminar',cars[h].idUsuario,content2)" type="button" class="btn btn-danger">
                                         Eliminar
@@ -51,7 +51,7 @@
 
     <template #content let-c="close" let-d="dismiss">
         <div class="modal-header">
-        <h4 class="modal-title">Registro de Maestro</h4>
+        <h4 class="modal-title">Registro de Asistencia</h4>
         <button type="button" class="close" aria-label="Close" (click)="d('cerrar')">
         <span aria-hidden="true">&times;</span>
         </button>
@@ -110,7 +110,7 @@
                                     <div class="modal-footer">
         
                                             <button type="button" class="btn btn-success" [disabled]="!maestrosForm.valid" (click)="c('Aceptar')" >Registrar Maestro</button>
-                                            <a class="btn btn-danger" routerLink="/maestro" (click)="c('Cancelar')">Cancelar</a>
+                                            <a class="btn btn-danger" routerLink="/asistencia" (click)="c('Cancelar')">Cancelar</a>
         
                                         </div>           
                             </form>
@@ -140,7 +140,7 @@
         
         <template #content3 let-c="close" let-d="dismiss">
             <div class="modal-header">
-            <h4 class="modal-title">Edición de Maestros</h4>
+            <h4 class="modal-title">Registrar Asistencia</h4>
             <button type="button" class="close" aria-label="Close" (click)="d('cerrar')">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -152,18 +152,26 @@
                                     <div class="form-group">
                                         <i class="fa fa-check-circle check" *ngIf="maestroForm.controls.nombre.valid"></i>
                                         <i class="fa fa-exclamation-circle uncheck" *ngIf="maestroForm.controls.nombre.invalid && maestroForm.controls.nombre.touched"></i>                            
-                                    <label for="nombre">nombre(s)</label>         
-                                    <input type="text" class="form-control" formControlName="nombre" id="nombre"  required>
+                                    <label for="nombre">Nombre(s)</label>         
+                                    <input disabled type="text" class="form-control" formControlName="nombre" id="nombre"  required>
                                     <p class="alert alert-danger" *ngIf="maestroForm.controls.nombre.invalid && maestroForm.controls.nombre.touched">El campo "nombre" es obligatorio.</p>                                                
                                     </div>
                                     <div class="form-group">
                                         <i class="fa fa-check-circle check" *ngIf="maestroForm.controls.apellido.valid"></i>
                                         <i class="fa fa-exclamation-circle uncheck" *ngIf="maestroForm.controls.apellido.invalid && maestroForm.controls.apellido.touched"></i>                            
-                                    <label for="app">Descripción(s)</label>
-                                    <input type="text" class="form-control" formControlName="apellido" id="app" required>
+                                    <label for="app">Apellido(s)</label>
+                                    <input disabled type="text" class="form-control" formControlName="apellido" id="app" required>
                                     <p class="alert alert-danger" *ngIf="maestroForm.controls.apellido.invalid && maestroForm.controls.apellido.touched">El campo "apellido" es obligatorio.</p>                                                
                                     </div>
                                     <div class="form-group">
+                                        <i class="fa fa-check-circle check" *ngIf="maestroForm.controls.fecha.valid"></i>
+                                        <i class="fa fa-exclamation-circle uncheck" *ngIf="maestroForm.controls.fecha.invalid && maestroForm.controls.fecha.touched"></i>                            
+                                    <label for="app">Fecha</label>
+                                    <input  type="date" class="form-control" formControlName="fecha" id="app" required>
+                                    <p class="alert alert-danger" *ngIf="maestroForm.controls.fecha.invalid && maestroForm.controls.fecha.touched">El campo "fecha" es obligatorio.</p>                                                
+                                    </div>
+
+                                    <!-- <div class="form-group">
                                         <i class="fa fa-check-circle check" *ngIf="maestroForm.controls.id_user.valid"></i>
                                         <i class="fa fa-exclamation-circle uncheck" *ngIf="maestroForm.controls.id_user.invalid && maestroForm.controls.id_user.touched"></i>                                
                                     <label for="id_usuario">Usuario</label>      
@@ -171,13 +179,13 @@
                                                     <option value="seleccione" disabled="disabled" selected="selected" hidden="hidden">Seleccione</option>
                                                     <option *ngFor="let item of usuarios;" [value]="item.idUsuario"> {{item.Nombre}}</option>
                                     </select>
-                                    </div>
+                                    </div> -->
                                     <br>
                                     <br>
                                     <p class="alert alert-danger" *ngIf="!maestroForm.valid">Por favor complete todos los campos</p>
                                     <div class="modal-footer">
-                                            <button type="button" class="btn btn-success" [disabled]="!maestroForm.valid" (click)="c('Aceptar')" >Guardar cambios</button>
-                                            <a class="btn btn-danger" routerLink="/maestro" (click)="c('Cancelar')">Cancelar</a>
+                                            <button type="button" class="btn btn-success" [disabled]="!maestroForm.valid" (click)="c('Aceptar')" >Registrar Asistencia</button>
+                                            <a class="btn btn-danger" routerLink="/asistencia" (click)="c('Cancelar')">Cancelar</a>
                                     </div>           
                                     
                             </form>
